@@ -1,0 +1,60 @@
+<footer class="space-footer">
+  <div class="container">
+    <!-- Simple copyright line -->
+    <div class="footer-bottom">
+      <div class="row">
+        <div class="col-12 text-center">
+          <img src="images/logo.jpg" alt="OneHertzLabs" class="footer-logo-img" height="30">
+          <p>&copy; 2025 <span class="gradient-text">OneHertzLabs</span>. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    .space-footer {
+      background: linear-gradient(to top, rgba(5, 8, 20, 0.95), rgba(8, 12, 25, 0.85));
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem 0;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .footer-bottom {
+      width: 100%;
+    }
+    
+    .footer-logo-img {
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.3));
+    }
+    
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 767px) {
+      .space-footer {
+        padding: 1.2rem 0;
+      }
+      
+      .footer-logo-img {
+        height: 25px;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</footer>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneHertzLabs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Dynamic Header -->
+  <div id="header"></div>
+
+  <!-- Main Content Area -->
+  <main id="main-content" class="container my-5">
+    <!-- Home page will load here by default -->
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Helper to always fetch relative to index.html
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1);
+  
+      fetch(basePath + 'header.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('header').innerHTML = html;
+          attachNavHandlers();
+        });
+  
+      fetch(basePath + 'footer.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('footer').innerHTML = html;
+        });
+  
+      loadContent(basePath + 'content/home.html');
+  
+      function attachNavHandlers() {
+        document.querySelectorAll('#header .nav-link, #header .dropdown-item').forEach(link => {
+          link.addEventListener('click', function(event) {
+            const page = this.getAttribute('data-page');
+            if (page) {
+              event.preventDefault();
+              loadContent(basePath + `content/${page}.html`);
+            }
+          });
+        });
+      }
+  
+      function loadContent(url) {
+        fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('main-content').innerHTML = html;
+          })
+          .catch(err => {
+            document.getElementById('main-content').innerHTML = "<h2>Page not found</h2>";
+          });
+      }
+    });
+  </script>
+  
+  
+</body>
+</html>
