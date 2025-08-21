@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h3 {
+    color: #0d6efd; /* Bootstrap blue */
+}
+
+footer {
+    font-size: 0.9rem;
+}
+
+/* Show dropdown menu on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* align with parent menu item */
+  }
+
+  /* Show dropdown menu on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* prevent space glitch */
+}
