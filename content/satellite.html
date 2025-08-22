@@ -9,18 +9,20 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-  font-family: 'Raleway', sans-serif;
-  /* Darker space background */
-  background: #040508 url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2000') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-  overflow-x: hidden;
-  position: relative;
-  animation: colorPulse 20s infinite ease-in-out;
-}
+    font-family: 'Raleway', sans-serif;
+    /* Properly set space background with correct opacity */
+    background: rgba(0, 0, 0, 0.95) url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2000') no-repeat center center fixed;
+    background-size: cover;
+    background-blend-mode: color; /* Changed to color for better blending */
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    animation: colorPulse 20s infinite ease-in-out;
+  }
 
     /* Add overlay with enhanced gradient for nebula effect */
    /* Darker overlay with enhanced gradient for nebula effect */
+/* Adjust the body::before overlay to better blend with header */
 body::before {
   content: '';
   position: fixed;
@@ -28,8 +30,8 @@ body::before {
   width: 100%; height: 100%;
   background: radial-gradient(circle at center, 
               rgba(10, 15, 30, 0.7) 0%,
-              rgba(5, 7, 15, 0.8) 50%, 
-              rgba(1, 2, 8, 0.9) 100%);
+              rgba(5, 8, 18, 0.75) 50%, 
+              rgba(2, 4, 12, 0.8) 100%);
   z-index: 0;
   pointer-events: none;
 }
@@ -69,6 +71,37 @@ body::before {
   animation: twinkle 3s infinite;
   box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7); /* Stronger default glow */
 }
+
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
+              0 0 40px 20px rgba(255, 255, 255, 0.6);
+  animation: shoot 6s linear infinite;
+  opacity: 0;
+  z-index: 5;
+}
+@keyframes shoot {
+  0% { 
+    opacity: 0;
+    transform: translate(0, 0); 
+  }
+  5% { 
+    opacity: 1; 
+  }
+  20% { 
+    transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+    opacity: 0;
+  }
+  100% { 
+    opacity: 0;
+    transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+  }
+}
+
     
 .star:nth-child(3n) {
   background: #fff; /* White stars */
@@ -85,39 +118,88 @@ body::before {
   box-shadow: 0 0 20px 5px rgba(255, 200, 120, 0.9); /* Stronger glow */
 }
 
+/* Enhance star twinkling effect */
 @keyframes twinkle {
-  0%,100% { opacity:0.6; transform: scale(1);} /* Higher minimum opacity */
-  50% { opacity:1; transform: scale(1.8); box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);} /* Stronger max glow */
+  0%, 100% { 
+    opacity: 0.6; 
+    transform: scale(1);
+    filter: blur(0px);
+  } 
+  50% { 
+    opacity: 1; 
+    transform: scale(1.8); 
+    box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
+    filter: blur(0.2px);
+  }
 }
     
     /* Add nebula clouds effect */
     .nebula-clouds {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png');
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 1;
-      mix-blend-mode: screen;
-      filter: hue-rotate(215deg) contrast(1.5);
-      animation: nebulaDrift 120s infinite linear;
-    }
-    
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  /* Remove the patterned texture URL and replace with a subtle gradient */
+  background: radial-gradient(ellipse at center, 
+              rgba(50, 100, 200, 0.1) 0%, 
+              rgba(20, 40, 100, 0.05) 50%, 
+              rgba(10, 20, 60, 0.02) 100%);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  filter: hue-rotate(215deg) brightness(1.2);
+  /* Add slow movement to create a subtle "flowing" effect */
+  animation: nebulaFlow 120s infinite ease-in-out;
+}
+   /* Add new animation for the nebula flow */
+@keyframes nebulaFlow {
+  0% { transform: scale(1) rotate(0deg); filter: hue-rotate(215deg) brightness(1.2); }
+  50% { transform: scale(1.1) rotate(5deg); filter: hue-rotate(245deg) brightness(1.3); }
+  100% { transform: scale(1) rotate(0deg); filter: hue-rotate(215deg) brightness(1.2); }
+} 
     @keyframes nebulaDrift {
       0% { background-position: 0 0; }
       100% { background-position: 1000px 1000px; }
     }
+    @keyframes glowPulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(1.2); }
+}
+/* Add this for additional depth with no pattern */
+.nebula-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 30% 40%, 
+              rgba(100, 180, 255, 0.15) 0%, 
+              rgba(70, 120, 255, 0.05) 30%, 
+              transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+  filter: blur(40px);
+  animation: glowPulse 25s infinite alternate;
+}
 
     /* Professional header with original style */
     header {
-      position: relative;
-      z-index: 10;
-      padding: 1.5rem 5rem;
-      background: linear-gradient(to bottom, rgba(16, 24, 59, 0.6), rgba(13, 19, 48, 0.4));
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(100, 200, 255, 0.15);
-    }
+    position: relative;
+    z-index: 10;
+    padding: 1.5rem 5rem;
+    /* Make header completely transparent with blur */
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    /* Remove any borders */
+    border: none;
+    border-bottom: none !important;
+    /* Remove any shadows */
+    box-shadow: none;
+  }
+
+   /* Create smooth fade for header bottom */
+   header::after {
+    content: none; /* Remove the after element that might create a line */
+  }
 
     .logo {
       font-size: 1.8rem;
@@ -131,15 +213,16 @@ body::before {
 
     /* Hero Section with professional design but original animations */
     .hero-section {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 100px 5rem;
-      gap: 60px;
-      position: relative;
-      z-index: 5;
-    }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 5rem 100px;
+    gap: 60px;
+    position: relative;
+    z-index: 5;
+    margin-top: 80px; /* Proper spacing for header without creating a line */
+  }
 
     .hero-content {
       flex: 1;
@@ -211,10 +294,12 @@ body::before {
     }
 
     .earth-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-    }
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin-right: 30px;
+    z-index: 5;
+  }
 
     .earth {
       width: 300px;
@@ -225,14 +310,14 @@ body::before {
     }
 
     .satellite-orbit {
-      position: absolute;
-      left: 50%; top: 50%;
-      width: 450px; height: 450px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      animation: orbit 20s linear infinite;
-      z-index: 2;
-    }
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 450px; height: 450px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: orbit 20s linear infinite;
+    z-index: 2;
+  }
 
     .satellite {
       position: absolute;
@@ -561,70 +646,91 @@ body::before {
 
     /* CTA section with original animation */
     .cta-section {
-      text-align: center;
-      padding: 5rem 3rem;
-      background: linear-gradient(145deg, rgba(100, 200, 255, 0.2), rgba(255, 157, 100, 0.15));
-      border-radius: 30px;
-      margin: 80px auto;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-      position: relative;
-      overflow: hidden;
-      max-width: 1200px;
-    }
+  text-align: center;
+  padding: 3.5rem 2rem; /* Reduced padding */
+  background: linear-gradient(145deg, rgba(100, 200, 255, 0.2), rgba(255, 157, 100, 0.15));
+  border-radius: 25px; /* Slightly reduced border radius */
+  margin: 60px auto; /* Reduced margin */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+  max-width: 900px; /* Reduced from 1200px */
+}
 
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: -100px; left: -100px;
-      width: calc(100% + 200px);
-      height: calc(100% + 200px);
-      background: radial-gradient(circle, rgba(100, 200, 255, 0.3) 0%, transparent 70%);
-      animation: pulse 10s infinite alternate;
-      pointer-events: none;
-      opacity: 0.5;
-      z-index: -1;
-    }
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: -80px; /* Smaller effect area */
+  width: calc(100% + 160px);
+  height: calc(100% + 160px);
+  background: radial-gradient(circle, rgba(100, 200, 255, 0.3) 0%, transparent 70%);
+  animation: pulse 10s infinite alternate;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: -1;
+}
 
-    .cta-content {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+.cta-content {
+  max-width: 650px; /* Reduced from 800px */
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
-    .cta-content h2 {
-      font-size: 2.8rem;
-      background: linear-gradient(45deg, #64c8ff, #ff9d64);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
-    }
+.cta-content h2 {
+  font-size: 2.4rem; /* Reduced from 2.8rem */
+  background: linear-gradient(45deg, #64c8ff, #ff9d64);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.2rem; /* Reduced spacing */
+  text-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
+}
 
-    .cta-content p {
-      font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 40px;
-    }
+.cta-content p {
+  font-size: 1.1rem; /* Reduced from 1.2rem */
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px; /* Reduced from 40px */
+  line-height: 1.6;
+}
 
-    .cta-button {
-      display: inline-block;
-      padding: 1.2rem 3rem;
-      background: linear-gradient(45deg, #64c8ff, #ff9d64);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem; /* Reduced padding */
+  background: linear-gradient(45deg, #64c8ff, #ff9d64);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 1rem; /* Reduced from 1.1rem */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 15px; /* Reduced from 20px */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive adjustments for CTA section */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 2.5rem 1.5rem;
+    margin: 40px auto;
+  }
+  
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  
+  .cta-content p {
+    font-size: 1rem;
+  }
+  
+  .cta-button {
+    padding: 0.9rem 2rem;
+  }
+}
 
     .cta-button::before {
       content: '';
@@ -646,20 +752,178 @@ body::before {
 
     /* Footer */
     footer {
-      background: rgba(9, 12, 31, 0.8);
-      padding: 40px 5rem;
-      text-align: center;
-      position: relative;
-      z-index: 5;
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(100, 200, 255, 0.1);
-    }
+    background: linear-gradient(to bottom, rgba(10, 15, 30, 0.6), rgba(5, 10, 20, 0.8));
+    padding: 40px 5rem 20px; /* Reduced bottom padding */
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(100, 200, 255, 0.1);
+    margin-top: 0; /* Remove any margin */
+    overflow: hidden; /* Prevent any overflow issues */
+  }
+
+    /* Add glowing line to top of footer */
+    footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 15%;
+    width: 70%; height: 1px;
+    background: linear-gradient(to right, 
+                transparent, 
+                rgba(100, 200, 255, 0.1), 
+                rgba(100, 200, 255, 0.4), 
+                rgba(100, 200, 255, 0.1), 
+                transparent);
+    box-shadow: 0 0 15px 1px rgba(100, 200, 255, 0.4);
+  }
+
+   /* Add animated glow to footer */
+   footer::after {
+    content: '';
+    position: absolute;
+    top: -50px; left: 0;
+    width: 100%; height: 50px;
+    background: radial-gradient(ellipse at center, 
+                rgba(100, 200, 255, 0.2) 0%, 
+                transparent 70%);
+    opacity: 0.5;
+    animation: footerGlow 5s infinite alternate;
+  }
+
+  @keyframes footerGlow {
+    0% { opacity: 0.3; transform: translateY(0); }
+    100% { opacity: 0.6; transform: translateY(5px); }
+  }
 
     footer p {
       color: rgba(255, 255, 255, 0.6);
       font-size: 1rem;
     }
 
+    /* Add logo to footer */
+  .footer-logo {
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .footer-logo img {
+    height: 40px;
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(100, 200, 255, 0.6));
+  }
+  
+  /* Footer content styling */
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .footer-info {
+    flex: 1;
+    min-width: 200px;
+    margin: 0 20px 20px;
+    text-align: left;
+  }
+
+  .footer-info h4 {
+    color: #64c8ff;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
+  }
+
+  .footer-info p, .footer-info a {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .footer-info a:hover {
+    color: #fff;
+    transform: translateX(3px);
+    text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
+  }
+  
+  /* Copyright section */
+  .copyright {
+    padding-top: 20px;
+    border-top: 1px solid rgba(100, 200, 255, 0.1);
+  }
+
+  .copyright p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  /* Social media icons */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .social-link {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(100, 200, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .social-link:hover {
+    background: rgba(100, 200, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(100, 200, 255, 0.4);
+  }
+
+    /* Remove extra space at bottom of page */
+    html, body {
+    min-height: 100%;
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+  
+  footer {
+    flex-shrink: 0;
+  }
+  
+  /* Responsive footer */
+  @media (max-width: 768px) {
+    footer {
+      padding: 40px 2rem 20px;
+    }
+    
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-info {
+      text-align: center;
+      margin: 0 0 30px;
+      width: 100%;
+    }
+  }
     /* Responsive adjustments */
     @media (max-width: 1024px) {
       .hero-section, .content-section {
@@ -717,12 +981,23 @@ body::before {
         font-size: 2.2rem;
       }
     }
+     /* Fix z-index layering for all elements */
+  .nebula-clouds { z-index: -1; }
+  .nebula-glow { z-index: -2; }
+  .stars { z-index: 1; }
+  
+  /* Ensure no borders show up on any elements in the header area */
+  nav, .navbar, .nav-container {
+    border: none !important;
+    box-shadow: none !important;
+  }
   </style>
 </head>
 <body>
   <div class="nebula-clouds"></div>
+  <div class="nebula-clouds"></div>
   <div class="stars" id="stars"></div>
-
+  <div class="star-dust"></div>
 
 
   <section class="hero-section">
@@ -859,7 +1134,8 @@ body::before {
       <div class="cta-content">
         <h2>Our Vision</h2>
         <p>We're building a future where every IoT device can connect from anywhere on Earth. From the deepest oceans to remote mountain peaks, from dense jungles to isolated deserts — our technology enables a truly connected planet.</p>
-        <a href="#contact" class="cta-button">Connect With Us</a>
+       <!-- Update the CTA button to use a direct href approach -->
+      <!-- <a href="contact.html" class="cta-button">Connect With Us</a> -->
       </div>
     </section>
   </main>
@@ -868,50 +1144,110 @@ body::before {
   <script>
     // Enhanced stars generation with LARGER stars
     // Replace the existing createStars function with this enhanced version
-
+   // Enhanced stars generation with MORE and LARGER stars
 function createStars() {
   const starsContainer = document.getElementById('stars');
   starsContainer.innerHTML = '';
-  const numberOfStars = 300; // Slightly reduced for better performance with larger stars
+  const numberOfStars = 700; // Significantly increased from 300 for denser star field
   
   for(let i=0; i<numberOfStars; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
     
-    // Create different sized stars with MUCH LARGER sizes
-    let size;
-    if(Math.random() > 0.92) {
-      // Extra large stars (more of them)
-      size = Math.random() * 7 + 6; // 6-13px
-      star.style.opacity = 0.95;
-    } else if(Math.random() > 0.7) {
-      // Medium stars (more of them)
-      size = Math.random() * 5 + 3; // 3-8px
-      star.style.opacity = 0.9;
+    // Create star distribution with more clustering
+    let xPos, yPos;
+    if (Math.random() > 0.6) { // 40% of stars in clusters
+      // Create star clusters in different parts of the screen
+      const clusterCount = 8; // More clusters
+      const cluster = Math.floor(Math.random() * clusterCount);
+      const clusterX = 10 + (cluster % 4) * 25; // Horizontal cluster positions
+      const clusterY = 10 + Math.floor(cluster / 4) * 30; // Vertical cluster positions
+      
+      // Position within cluster with more variance
+      xPos = clusterX + (Math.random() * 20 - 10);
+      yPos = clusterY + (Math.random() * 20 - 10);
     } else {
-      // Smaller stars
-      size = Math.random() * 3 + 1.5; // 1.5-4.5px (larger minimum)
-      star.style.opacity = 0.8 + Math.random() * 0.2;
+      // Remaining stars distributed across the screen
+      xPos = Math.random() * 100;
+      yPos = Math.random() * 100;
+    }
+    
+    star.style.left = xPos + '%';
+    star.style.top = yPos + '%';
+    
+    // Create different sized stars with MUCH LARGER sizes and better distribution
+    let size;
+    const sizeRandom = Math.random();
+    if(sizeRandom > 0.94) {
+      // Extra large stars (6% - increased from 8%)
+      size = Math.random() * 9 + 7; // 7-16px (increased size)
+      star.style.opacity = 0.95;
+      star.style.zIndex = 4; // Ensure largest stars are on top
+    } else if(sizeRandom > 0.75) {
+      // Medium stars (19% - increased from 17%)
+      size = Math.random() * 6 + 4; // 4-10px (increased size)
+      star.style.opacity = 0.9;
+      star.style.zIndex = 3;
+    } else if(sizeRandom > 0.45) {
+      // Small stars (30%)
+      size = Math.random() * 3 + 2; // 2-5px (increased minimum)
+      star.style.opacity = 0.85;
+      star.style.zIndex = 2;
+    } else {
+      // Tiny stars (45%)
+      size = Math.random() * 1.5 + 1; // 1-2.5px
+      star.style.opacity = 0.7 + Math.random() * 0.2;
+      star.style.zIndex = 1;
     }
     
     star.style.width = size + 'px';
     star.style.height = size + 'px';
-    star.style.animationDelay = Math.random() * 3 + 's';
-    star.style.animationDuration = (3 + Math.random() * 4) + 's';
     
-    // Stronger glow for better visibility
-    if (size > 5) {
-      star.style.boxShadow = `0 0 ${size*2}px ${size}px rgba(255, 255, 255, 0.9)`;
-    } else if (size > 3) {
-      star.style.boxShadow = `0 0 ${size*2}px ${size/2}px rgba(255, 255, 255, 0.8)`;
+    // Varied animation timing for more realistic twinkling
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.animationDuration = (2 + Math.random() * 6) + 's'; // More varied duration
+    
+    // Stronger glow for better visibility with color variations
+    let colorIndex = Math.floor(Math.random() * 5); // 5 different color options
+    let shadowColor;
+    
+    switch(colorIndex) {
+      case 0: // Blue stars
+        shadowColor = 'rgba(120, 210, 255, 0.9)';
+        break;
+      case 1: // White stars
+        shadowColor = 'rgba(255, 255, 255, 0.9)';
+        break;
+      case 2: // Slight yellow stars
+        shadowColor = 'rgba(255, 240, 200, 0.9)';
+        break;
+      case 3: // Slight purple stars
+        shadowColor = 'rgba(200, 180, 255, 0.9)';
+        break;
+      case 4: // Slight teal stars
+        shadowColor = 'rgba(140, 230, 210, 0.9)';
+        break;
+    }
+    
+    // Enhanced glow effect based on star size
+    if (size > 7) {
+      star.style.boxShadow = `0 0 ${size*3}px ${size*1.5}px ${shadowColor}`;
+    } else if (size > 4) {
+      star.style.boxShadow = `0 0 ${size*2.5}px ${size}px ${shadowColor}`;
+    } else if (size > 2) {
+      star.style.boxShadow = `0 0 ${size*2}px ${size/1.5}px ${shadowColor}`;
+    } else {
+      star.style.boxShadow = `0 0 ${size*1.5}px ${size/2}px ${shadowColor}`;
     }
     
     starsContainer.appendChild(star);
   }
+  
+  // Add a few shooting stars for extra visual interest
+  addShootingStars(starsContainer, 3);
 }
-    // Run createStars when DOM is loaded
+   
+// Run createStars when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
       createStars();
       console.log('DOM fully loaded, stars should be visible');
@@ -940,6 +1276,83 @@ function createStars() {
         hero.style.transform = `translateY(${scrolled * 0.05}px)`;
       }
     });
+
+   
+
+// Add shooting stars function
+function addShootingStars(container, count) {
+  for(let i=0; i<count; i++) {
+    setTimeout(() => {
+      const shooter = document.createElement('div');
+      shooter.className = 'shooting-star';
+      
+      // Random position at top of viewport
+      const startX = Math.random() * 80; // Start position
+      shooter.style.left = startX + '%';
+      shooter.style.top = Math.random() * 40 + '%'; // Top 40% of screen
+      
+      // Random size for shooting star
+      const size = Math.random() * 4 + 3;
+      shooter.style.width = size + 'px';
+      shooter.style.height = size + 'px';
+      
+      // Random diagonal direction and distance
+      const angle = 30 + Math.random() * 30; // 30-60 degrees
+      const distance = 30 + Math.random() * 50; // 30-80vh travel distance
+      
+      // Set CSS variables for the animation
+      shooter.style.setProperty('--angle', angle + 'deg');
+      shooter.style.setProperty('--distance', distance + 'vh');
+      
+      // Random delay before each shooting star starts
+      shooter.style.animationDelay = (i * 8 + Math.random() * 15) + 's';
+      
+      // Append to container
+      container.appendChild(shooter);
+    }, 1000); // Small delay after page load
+  }
+}
+
+function navigateToContact(event) {
+    event.preventDefault();
+    
+    // Try relative path first
+    window.location.href = 'contact.html';
+    
+    // If that doesn't work, use this as a fallback
+    setTimeout(function() {
+        // If we're still on the same page after 100ms, try another approach
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('satellite.html')) {
+            // Extract directory path
+            const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            window.location.href = basePath + 'contact.html';
+        }
+    }, 100);
+}
+
   </script>
+
+  <!-- filepath: /c:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ/content/satellite.html -->
+
+  <script>
+    // Remove all the complex navigation handlers and use this simple approach
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactButtons = document.querySelectorAll('a.cta-button');
+      
+      contactButtons.forEach(button => {
+        if (button.textContent.includes('Connect With Us')) {
+          // Set the correct href for Live Server environment
+          button.setAttribute('href', './contact.html');
+          
+          // Add a click handler to log for debugging
+          button.addEventListener('click', function(e) {
+            console.log('Navigating to contact page');
+          });
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

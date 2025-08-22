@@ -4,23 +4,830 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Computing Device - OneHertzLabs</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <!-- Add Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: rgba(0, 0, 0, 0.95) url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2000') no-repeat center center fixed;
+      background-size: cover;
+      background-blend-mode: color;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      animation: colorPulse 20s infinite ease-in-out;
+    }
+
+    /* Add overlay with enhanced gradient for nebula effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, 
+                rgba(10, 15, 30, 0.7) 0%,
+                rgba(5, 8, 18, 0.75) 50%, 
+                rgba(2, 4, 12, 0.8) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    @keyframes colorPulse {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(15deg); }
+      100% { filter: hue-rotate(0deg); }
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      line-height: 1.7;
+    }
+
+    /* Stars background with improved design */
+    .stars {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    /* Create different colored stars */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+      box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7);
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
+                  0 0 40px 20px rgba(255, 255, 255, 0.6);
+      animation: shoot 6s linear infinite;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    @keyframes shoot {
+      0% { 
+        opacity: 0;
+        transform: translate(0, 0); 
+      }
+      5% { 
+        opacity: 1; 
+      }
+      20% { 
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+        opacity: 0;
+      }
+      100% { 
+        opacity: 0;
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+      }
+    }
+
+    /* Enhance star twinkling effect */
+    @keyframes twinkle {
+      0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1);
+        filter: blur(0px);
+      } 
+      50% { 
+        opacity: 1; 
+        transform: scale(1.8); 
+        box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
+        filter: blur(0.2px);
+      }
+    }
+    
+    /* Add nebula clouds effect */
+    .nebula-clouds {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at center, 
+                  rgba(50, 100, 200, 0.1) 0%, 
+                  rgba(20, 40, 100, 0.05) 50%, 
+                  rgba(10, 20, 60, 0.02) 100%);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: screen;
+      filter: hue-rotate(215deg) brightness(1.2);
+      animation: nebulaFlow 120s infinite ease-in-out;
+    }
+
+    @keyframes nebulaFlow {
+      0% { transform: scale(1) rotate(0deg); filter: hue-rotate(215deg) brightness(1.2); }
+      50% { transform: scale(1.1) rotate(5deg); filter: hue-rotate(245deg) brightness(1.3); }
+      100% { transform: scale(1) rotate(0deg); filter: hue-rotate(215deg) brightness(1.2); }
+    }
+
+    /* Add this for additional depth with no pattern */
+    .nebula-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 40%, 
+                  rgba(100, 180, 255, 0.15) 0%, 
+                  rgba(70, 120, 255, 0.05) 30%, 
+                  transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+      filter: blur(40px);
+      animation: glowPulse 25s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    /* Header styling */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 1.5rem 5rem;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      background: linear-gradient(45deg, rgba(100, 200, 255, 0.1), rgba(255, 157, 100, 0.1));
+      backdrop-filter: blur(5px);
+    }
+
+    nav a:hover {
+      background: linear-gradient(45deg, rgba(100, 200, 255, 0.3), rgba(255, 157, 100, 0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(100, 200, 255, 0.3);
+    }
+
+    /* Computing Section Styling */
+    .computing-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .computing-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .computing-header h1 {
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
+    }
+
+    .computing-header p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .computing-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .computing-card {
+      background: linear-gradient(145deg, rgba(25, 33, 68, 0.2), rgba(16, 24, 59, 0.1));
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 40px;
+      border: 1px solid rgba(100, 200, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .computing-card h2 {
+      color: #64c8ff;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-item {
+      background: linear-gradient(145deg, rgba(25, 33, 68, 0.3), rgba(16, 24, 59, 0.2));
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(100, 200, 255, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(100, 200, 255, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #64c8ff;
+      text-shadow: 0 0 15px rgba(100, 200, 255, 0.7);
+    }
+
+    .feature-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 30px;
+    }
+
+    .specs-table th,
+    .specs-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(100, 200, 255, 0.15);
+    }
+
+    .specs-table th {
+      color: #64c8ff;
+      font-weight: 600;
+      background: rgba(25, 33, 68, 0.3);
+    }
+
+    .specs-table tr:first-child th:first-child {
+      border-top-left-radius: 15px;
+    }
+
+    .specs-table tr:first-child th:last-child {
+      border-top-right-radius: 15px;
+    }
+
+    .specs-table tr:last-child td:first-child {
+      border-bottom-left-radius: 15px;
+    }
+
+    .specs-table tr:last-child td:last-child {
+      border-bottom-right-radius: 15px;
+    }
+
+    .specs-table tr:nth-child(odd) td {
+      background: rgba(25, 33, 68, 0.2);
+    }
+
+    .specs-table tr:nth-child(even) td {
+      background: rgba(16, 24, 59, 0.1);
+    }
+
+    .tech-diagram {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(145deg, rgba(25, 33, 68, 0.4), rgba(16, 24, 59, 0.2));
+      border-radius: 15px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(100, 200, 255, 0.15);
+    }
+
+    .tech-diagram span {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 5rem;
+      position: relative;
+      z-index: 5;
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(25, 33, 68, 0.3), rgba(16, 24, 59, 0.2));
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 60px 40px;
+      border: 1px solid rgba(100, 200, 255, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .cta-content p {
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.7s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.5);
+    }
+
+    .cta-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .computing-section, .cta-section {
+        padding: 80px 2rem;
+      }
+      
+      .computing-header h1 {
+        font-size: 2.8rem;
+      }
+      
+      header {
+        padding: 1.5rem 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .computing-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      nav ul {
+        gap: 15px;
+      }
+      
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+
+    /* Footer styles */
+    footer {
+      background: linear-gradient(to bottom, rgba(10, 15, 30, 0.6), rgba(5, 10, 20, 0.8));
+      padding: 40px 5rem 20px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      backdrop-filter: blur(10px);
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    /* Floating circuit animation */
+    .circuit-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.1;
+    }
+
+    .circuit-line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, #64c8ff, transparent);
+      height: 1px;
+      width: 100px;
+      opacity: 0;
+      animation: circuit-flow 8s linear infinite;
+    }
+
+    .circuit-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #64c8ff;
+      box-shadow: 0 0 10px 2px rgba(100, 200, 255, 0.7);
+      opacity: 0;
+      animation: circuit-pulse 6s linear infinite;
+    }
+
+    @keyframes circuit-flow {
+      0% {
+        opacity: 0;
+        width: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        width: 100px;
+      }
+    }
+
+    @keyframes circuit-pulse {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="nebula-clouds"></div>
+  <div class="nebula-glow"></div>
+  <div class="stars" id="stars"></div>
+  <div class="circuit-animation" id="circuitAnimation"></div>
 
-<div id="header"></div>
-<script>
-  fetch("header.html")
-    .then(response => response.text())
-    .then(data => document.getElementById("header").innerHTML = data);
-</script>
+  
 
-<div class="container my-5">
-  <h1>Computing Device</h1>
-  <p>Details about our computing device will go here.</p>
-</div>
+  <section class="computing-section">
+    <div class="computing-header">
+      <h1>Computing Device</h1>
+      <p>High-performance edge computing solutions designed for satellite IoT applications. Our compact, energy-efficient devices enable powerful data processing in the most remote environments.</p>
+    </div>
+    
+    <div class="computing-container">
+      <!-- Overview Card -->
+      <div class="computing-card">
+        <h2>Product Overview</h2>
+        <p>Content coming soon...</p>
+        
+        <!-- Feature Grid -->
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Low Power</h3>
+            <p>Content coming soon...</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Security</h3>
+            <p>Content coming soon...</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🌡️</div>
+            <h3 class="feature-title">Rugged Design</h3>
+            <p>Content coming soon...</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🔌</div>
+            <h3 class="feature-title">Connectivity</h3>
+            <p>Content coming soon...</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">💾</div>
+            <h3 class="feature-title">Storage</h3>
+            <p>Content coming soon...</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">⚙️</div>
+            <h3 class="feature-title">Edge AI</h3>
+            <p>Content coming soon...</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Technical Specifications Card -->
+      <div class="computing-card">
+        <h2>Technical Specifications</h2>
+        <p>Content coming soon...</p>
+        
+        <!-- Specifications Table -->
+        <table class="specs-table">
+          <tr>
+            <th>Specification</th>
+            <th>Details</th>
+          </tr>
+          <tr>
+            <td>Processor</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Storage</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Power Consumption</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Connectivity</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Operating Temperature</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Dimensions</td>
+            <td>Content coming soon...</td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td>Content coming soon...</td>
+          </tr>
+        </table>
+        
+        <!-- Placeholder for technical diagram -->
+        <div class="tech-diagram">
+          <span>Technical Diagram Coming Soon</span>
+        </div>
+      </div>
+      
+      <!-- Use Cases Card -->
+      <div class="computing-card">
+        <h2>Use Cases</h2>
+        <p>Content coming soon...</p>
+      </div>
+    </div>
+  </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Upgrade Your IoT Computing?</h2>
+      <p>Contact our team to learn more about our computing solutions and how they can transform your IoT deployment.</p>
+      <a href="contact.html" class="cta-btn">Contact Us</a>
+    </div>
+  </section>
+
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      createStars();
+      createCircuitElements();
+    });
+
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      starsContainer.innerHTML = '';
+      const numberOfStars = 700;
+      
+      for(let i=0; i<numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        let xPos, yPos;
+        if (Math.random() > 0.6) {
+          const clusterCount = 8;
+          const cluster = Math.floor(Math.random() * clusterCount);
+          const clusterX = 10 + (cluster % 4) * 25;
+          const clusterY = 10 + Math.floor(cluster / 4) * 30;
+          
+          xPos = clusterX + (Math.random() * 20 - 10);
+          yPos = clusterY + (Math.random() * 20 - 10);
+        } else {
+          xPos = Math.random() * 100;
+          yPos = Math.random() * 100;
+        }
+        
+        star.style.left = xPos + '%';
+        star.style.top = yPos + '%';
+        
+        let size;
+        const sizeRandom = Math.random();
+        if(sizeRandom > 0.94) {
+          size = Math.random() * 9 + 7;
+          star.style.opacity = 0.95;
+          star.style.zIndex = 4;
+        } else if(sizeRandom > 0.75) {
+          size = Math.random() * 6 + 4;
+          star.style.opacity = 0.9;
+          star.style.zIndex = 3;
+        } else if(sizeRandom > 0.45) {
+          size = Math.random() * 3 + 2;
+          star.style.opacity = 0.85;
+          star.style.zIndex = 2;
+        } else {
+          size = Math.random() * 1.5 + 1;
+          star.style.opacity = 0.7 + Math.random() * 0.2;
+          star.style.zIndex = 1;
+        }
+        
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.animationDuration = (2 + Math.random() * 6) + 's';
+        
+        let colorIndex = Math.floor(Math.random() * 5);
+        let shadowColor;
+        
+        switch(colorIndex) {
+          case 0:
+            shadowColor = 'rgba(120, 210, 255, 0.9)';
+            break;
+          case 1:
+            shadowColor = 'rgba(255, 255, 255, 0.9)';
+            break;
+          case 2:
+            shadowColor = 'rgba(255, 240, 200, 0.9)';
+            break;
+          case 3:
+            shadowColor = 'rgba(200, 180, 255, 0.9)';
+            break;
+          case 4:
+            shadowColor = 'rgba(140, 230, 210, 0.9)';
+            break;
+        }
+        
+        if (size > 7) {
+          star.style.boxShadow = `0 0 ${size*3}px ${size*1.5}px ${shadowColor}`;
+        } else if (size > 4) {
+          star.style.boxShadow = `0 0 ${size*2.5}px ${size}px ${shadowColor}`;
+        } else if (size > 2) {
+          star.style.boxShadow = `0 0 ${size*2}px ${size/1.5}px ${shadowColor}`;
+        } else {
+          star.style.boxShadow = `0 0 ${size*1.5}px ${size/2}px ${shadowColor}`;
+        }
+        
+        starsContainer.appendChild(star);
+      }
+      
+      addShootingStars(starsContainer, 3);
+    }
+    
+    function addShootingStars(container, count) {
+      for(let i=0; i<count; i++) {
+        setTimeout(() => {
+          const shooter = document.createElement('div');
+          shooter.className = 'shooting-star';
+          
+          const startX = Math.random() * 80;
+          shooter.style.left = startX + '%';
+          shooter.style.top = Math.random() * 40 + '%';
+          
+          const size = Math.random() * 4 + 3;
+          shooter.style.width = size + 'px';
+          shooter.style.height = size + 'px';
+          
+          const angle = 30 + Math.random() * 30;
+          const distance = 30 + Math.random() * 50;
+          
+          shooter.style.setProperty('--angle', angle + 'deg');
+          shooter.style.setProperty('--distance', distance + 'vh');
+          
+          shooter.style.animationDelay = (i * 8 + Math.random() * 15) + 's';
+          
+          container.appendChild(shooter);
+        }, 1000);
+      }
+    }
+    
+    function createCircuitElements() {
+      const circuitContainer = document.getElementById('circuitAnimation');
+      const lineCount = 30;
+      const dotCount = 20;
+      
+      // Create circuit lines
+      for(let i=0; i<lineCount; i++) {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 'circuit-line';
+          
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          const rotation = Math.random() * 360;
+          
+          line.style.left = posX + '%';
+          line.style.top = posY + '%';
+          line.style.transform = `rotate(${rotation}deg)`;
+          line.style.animationDelay = (Math.random() * 10) + 's';
+          
+          circuitContainer.appendChild(line);
+        }, i * 100);
+      }
+      
+      // Create circuit dots
+      for(let i=0; i<dotCount; i++) {
+        setTimeout(() => {
+          const dot = document.createElement('div');
+          dot.className = 'circuit-dot';
+          
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          
+          dot.style.left = posX + '%';
+          dot.style.top = posY + '%';
+          dot.style.animationDelay = (Math.random() * 5) + 's';
+          
+          circuitContainer.appendChild(dot);
+        }, i * 150);
+      }
+    }
+  </script>
 </body>
 </html>

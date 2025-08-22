@@ -7,7 +7,7 @@
     <div class="container">
       <!-- Brand with logo -->
       <a class="navbar-brand nav-link" href="#" data-page="home">   
-          <img src="images/logo.jpg" alt="OneHertzLabs" class="logo-img">
+          <img src="images/logo.png" alt="OneHertzLabs" class="logo-img">
       </a>
 
       <!-- Mobile Toggle -->
@@ -54,105 +54,178 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      z-index: -2;
+      z-index: 3; /* Increased z-index to ensure visibility */
     }
     
-   /* Update stars to match satellite.html */
-.star {
-  position: absolute;
-  border-radius: 50%;
-  animation: twinkle 3s infinite;
-  box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.6); /* Softer glow */
-}
-@keyframes twinkle {
-  0%,100% { opacity:0.5; transform: scale(1);}
-  50% { opacity:0.9; transform: scale(1.7); box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8);}
-}
+    /* Update stars to match satellite.html blue theme */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+      box-shadow: 0 0 15px 5px rgba(150, 200, 255, 0.7); /* Blue glow for stars */
+      background: rgba(255, 255, 255, 0.9); /* Ensure stars have a visible background */
+    }
     
-    /* Adjust the nebula-clouds to better match satellite.html */
-.nebula-clouds {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png');
-  opacity: 0.25; /* Reduced opacity to match satellite.html */
-  pointer-events: none;
-  z-index: -1;
-  mix-blend-mode: screen;
-  filter: hue-rotate(215deg) contrast(1.3);
-  animation: nebulaDrift 150s infinite linear;
-}
+    .star:nth-child(3n) {
+      background: #fff; /* White stars */
+      box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.9); /* Stronger glow */
+    }
+
+    .star:nth-child(3n+1) {
+      background: rgba(150, 200, 255, 0.9); /* Subtle blue stars */
+      box-shadow: 0 0 20px 5px rgba(150, 200, 255, 0.7); /* Cooler blue glow */
+    }
+
+    .star:nth-child(3n+2) {
+      background: rgba(200, 200, 200, 0.9); /* Silver stars */
+      box-shadow: 0 0 20px 5px rgba(200, 200, 200, 0.7); /* Silver glow */
+    }
+    
+    @keyframes twinkle {
+      0%,100% { opacity:0.6; transform: scale(1);}
+      50% { opacity:1; transform: scale(1.7); box-shadow: 0 0 30px 10px rgba(150, 200, 255, 0.8);} 
+    }
+    
+    /* Add shooting stars effect */
+    .shooting-star {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 30px 15px rgba(150, 200, 255, 0.8),
+                  0 0 50px 30px rgba(150, 200, 255, 0.6);
+      animation: shoot 8s linear infinite;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    @keyframes shoot {
+      0% { 
+        opacity: 0;
+        transform: translate(0, 0); 
+      }
+      5% { 
+        opacity: 1; 
+      }
+      10% { 
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+        opacity: 0;
+      }
+      100% { 
+        opacity: 0;
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+      }
+    }
+    
+    /* Adjust the nebula-clouds to match blue theme */
+    .nebula-clouds {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png');
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: -1;
+      mix-blend-mode: screen;
+      filter: grayscale(80%) brightness(0.6) hue-rotate(190deg); /* Added blue tint with hue-rotate */
+      animation: nebulaDrift 240s infinite linear;
+    }
+    
+    /* Add a nebula "dust" overlay for depth with blue tint */
+    .star-dust {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 2;
+      filter: hue-rotate(190deg); /* Blue tint */
+      animation: dust-drift 240s infinite linear;
+    }
+
+    @keyframes dust-drift {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
     
     @keyframes nebulaDrift {
       0% { background-position: 0 0; }
       100% { background-position: 1000px 1000px; }
     }
     
-    /* Navbar styling */
+    /* Navbar styling with blue-black gradient */
     .navbar {
-  background: linear-gradient(to bottom, rgba(10, 15, 35, 0.85), rgba(5, 10, 25, 0.75)) !important;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(100, 200, 255, 0.15);
-  padding: 15px 0;
-  transition: all 0.3s ease;
-}
+      background: linear-gradient(to bottom, rgba(5, 15, 30, 0.9), rgba(3, 8, 20, 0.95)) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(100, 150, 200, 0.2); /* Blue tinted border */
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
     
-    /* Logo styling - eye-catching and professional */
+    /* Adjust container width */
+    .navbar .container {
+      max-width: 1140px;
+      padding: 0 15px;
+    }
+    
+    /* Logo styling - more compact with blue glow */
     .navbar-brand {
       display: flex;
       align-items: center;
       padding: 0;
       position: relative;
-      margin-right: 30px;
+      margin-right: 20px;
     }
     
     .logo-img {
-      height: 100px; /* Very large and prominent */
+      height: 70px;
       width: auto;
-      /* Enhanced filter effects */
-      filter: brightness(1.6) contrast(1.5) drop-shadow(0 0 15px rgba(100, 200, 255, 0.6));
+      filter: brightness(1.4) contrast(1.4) drop-shadow(0 0 15px rgba(100, 180, 255, 0.6)); /* Bluer drop shadow */
       transition: all 0.4s ease;
       position: relative;
       z-index: 2;
     }
     
-    /* Add a subtle animated glow behind the logo */
+    /* Add a subtle animated blue glow behind the logo */
     .navbar-brand::before {
-  content: '';
-  position: absolute;
-  top: -18px; bottom: -18px;
-  left: -22px; right: -22px;
-  background: radial-gradient(ellipse at center, rgba(100, 200, 255, 0.15), transparent 75%);
-  border-radius: 40px;
-  z-index: 1;
-  opacity: 0.7;
-  animation: logoPulse 3s infinite ease-in-out;
-}
+      content: '';
+      position: absolute;
+      top: -12px; bottom: -12px;
+      left: -15px; right: -15px;
+      background: radial-gradient(ellipse at center, rgba(100, 180, 255, 0.15), transparent 75%); /* Bluer glow */
+      border-radius: 30px;
+      z-index: 1;
+      opacity: 0.6;
+      animation: logoPulse 3s infinite ease-in-out;
+    }
     
     @keyframes logoPulse {
       0%, 100% { opacity: 0.3; transform: scale(0.98); }
-      50% { opacity: 0.7; transform: scale(1.02); }
+      50% { opacity: 0.6; transform: scale(1.02); }
     }
     
-    /* Enhanced hover effects */
+    /* Enhanced hover effects with blue */
     .navbar-brand:hover .logo-img {
-      transform: translateY(-3px) scale(1.05);
-      filter: brightness(1.7) contrast(1.6) drop-shadow(0 0 20px rgba(100, 200, 255, 0.8));
+      transform: translateY(-2px) scale(1.05);
+      filter: brightness(1.5) contrast(1.5) drop-shadow(0 0 18px rgba(100, 180, 255, 0.8)); /* Bluer drop shadow */
     }
     
     .navbar-brand:hover::before {
       animation-play-state: paused;
-      opacity: 0.9;
+      opacity: 0.7;
     }
     
-    /* Nav links styling */
+    /* Nav links styling with blue accents */
     .space-nav .nav-link {
       color: rgba(255, 255, 255, 0.85) !important;
       font-weight: 500;
       position: relative;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem 0.8rem;
       transition: all 0.3s ease;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin-top: 0;
     }
     
     .space-nav .nav-link::after {
@@ -163,12 +236,13 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(to right, #64c8ff, #ff9d64);
+      background: linear-gradient(to right, #64c8ff, #9b85ff); /* Blue to purple gradient like satellite.html */
       transition: width 0.3s ease;
     }
     
     .space-nav .nav-link:hover {
       color: #ffffff !important;
+      text-shadow: 0 0 8px rgba(150, 200, 255, 0.5); /* Blue glow on hover */
     }
     
     .space-nav .nav-link:hover::after,
@@ -180,68 +254,80 @@
       color: #ffffff !important;
     }
     
-    /* Dropdown styling */
+    /* Dropdown styling with blue accents */
     .space-dropdown {
-      background: rgba(8, 12, 30, 0.95);
-      border: 1px solid rgba(100, 200, 255, 0.15);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(5, 15, 30, 0.95); /* Dark blue-black */
+      border: 1px solid rgba(100, 150, 200, 0.2); /* Blue tinted border */
+      box-shadow: 0 10px 25px rgba(0, 10, 30, 0.5), 0 0 20px rgba(100, 180, 255, 0.2); /* Blue glow */
       backdrop-filter: blur(10px);
       padding: 0.5rem;
       border-radius: 8px;
-      margin-top: 10px;
+      margin-top: 5px;
     }
     
     .space-dropdown .dropdown-item {
       color: rgba(255, 255, 255, 0.85);
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 0.8rem;
       border-radius: 4px;
       transition: all 0.2s ease;
     }
     
     .space-dropdown .dropdown-item:hover {
-      background: rgba(100, 200, 255, 0.1);
+      background: rgba(100, 150, 255, 0.15); /* Blue highlight */
       color: #ffffff;
       transform: translateX(3px);
+      text-shadow: 0 0 8px rgba(150, 200, 255, 0.5); /* Blue glow on hover */
     }
     
     /* Fix for dropdown arrow alignment */
     .space-nav .dropdown-toggle::after {
-      vertical-align: middle;
-      margin-left: 0.4rem;
-      position: relative;
-      top: 1px;
-      border-top-width: 0.3em;
-    }
+      display: none !important;
+  }
     
     /* Make the dropdown toggle more polished */
     .space-nav .nav-link.dropdown-toggle {
-      display: flex;
-      align-items: center;
-    }
+      padding-right: 0.8rem;
+  }
     
     /* Adjust hover effect for dropdown menu */
     .space-nav .nav-item.dropdown .nav-link:hover::after {
-      width: 50%; /* Slightly less than regular links */
+      width: 50%;
     }
     
-    /* Compressed navbar on scroll */
-    /* Scrolled navbar with more transparency to match satellite.html */
-.navbar.scrolled {
-  padding: 8px 0;
-  background: rgba(5, 8, 20, 0.85) !important; /* More transparent to match satellite.html */
-}
+    /* Compressed navbar on scroll with blue-black gradient */
+    .navbar.scrolled {
+      padding: 3px 0;
+      background: linear-gradient(to bottom, rgba(3, 10, 25, 0.98), rgba(2, 5, 15, 0.98)) !important; /* Darker blue-black */
+    }
     
     .navbar.scrolled .logo-img {
-      height: 70px; /* Smaller logo when scrolled */
+      height: 50px;
       transition: all 0.3s ease;
     }
     
     .navbar.scrolled .navbar-brand::before {
-      top: -10px; bottom: -10px;
-      left: -12px; right: -12px;
+      top: -8px; bottom: -8px;
+      left: -10px; right: -10px;
       transition: all 0.3s ease;
     }
     
+    /* Adjust navbar-nav spacing */
+    .navbar-nav {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    
+    /* Remove any extra padding in navbar-collapse */
+    .navbar-collapse {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    
+
+    /* Remove any default arrow if present (Bootstrap might add one) */
+  .nav-link.dropdown-toggle .dropdown-arrow {
+    display: none;
+  }
     /* Hover dropdown */
     @media(min-width: 992px) {
       .nav-item.dropdown:hover .dropdown-menu {
@@ -253,46 +339,46 @@
     /* Responsive adjustments */
     @media (min-width: 1200px) {
       .logo-img {
-        height: 120px; /* Extremely large on big screens */
+        height: 80px;
       }
       
       .navbar-brand::before {
-        top: -20px; bottom: -20px;
-        left: -25px; right: -25px;
+        top: -14px; bottom: -14px;
+        left: -18px; right: -18px;
       }
       
       .navbar {
-        padding: 18px 0; /* Even more padding on large screens */
+        padding: 8px 0;
       }
     }
     
     @media (max-width: 992px) {
       .logo-img {
-        height: 85px; /* Much larger on tablets */
-      }
-      
-      .navbar-brand::before {
-        top: -12px; bottom: -12px;
-        left: -15px; right: -15px;
-      }
-      
-      .navbar {
-        padding: 12px 0;
-      }
-    }
-    
-    @media (max-width: 767px) {
-      .logo-img {
-        height: 70px; /* Still quite large on mobile */
-      }
-      
-      .navbar {
-        padding: 10px 0;
+        height: 60px;
       }
       
       .navbar-brand::before {
         top: -10px; bottom: -10px;
         left: -12px; right: -12px;
+      }
+      
+      .navbar {
+        padding: 5px 0;
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .logo-img {
+        height: 50px;
+      }
+      
+      .navbar {
+        padding: 4px 0;
+      }
+      
+      .navbar-brand::before {
+        top: -8px; bottom: -8px;
+        left: -10px; right: -10px;
       }
     }
   </style>
@@ -313,6 +399,13 @@
           navbar.classList.remove('scrolled');
         }
       });
+      
+      // Create star dust div if it doesn't exist
+      if (!document.querySelector('.star-dust')) {
+        const starDust = document.createElement('div');
+        starDust.className = 'star-dust';
+        document.body.appendChild(starDust);
+      }
     });
     
     function createStars() {
@@ -320,40 +413,100 @@
       if (!starsContainer) return;
       
       starsContainer.innerHTML = '';
-      const numberOfStars = 150;
+      const numberOfStars = 300; // Increased from 150
       
       for(let i=0; i<numberOfStars; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
         
-        // Create different sized stars
+        // Create more stars in the center area of the screen
+        let xPos, yPos;
+        if (Math.random() > 0.3) {
+          // 70% of stars distributed evenly
+          xPos = Math.random() * 100;
+          yPos = Math.random() * 100;
+        } else {
+          // 30% of stars clustered to create "star fields"
+          const cluster = Math.floor(Math.random() * 5); // 5 potential clusters
+          const clusterX = 20 + (cluster * 15); // Distribute clusters horizontally
+          const clusterY = 30 + (Math.random() * 40); // Clusters in middle of screen
+          
+          xPos = clusterX + (Math.random() * 15 - 7.5); // Spread within cluster
+          yPos = clusterY + (Math.random() * 15 - 7.5); // Spread within cluster
+        }
+        
+        star.style.left = xPos + '%';
+        star.style.top = yPos + '%';
+        
+        // Create different sized stars with improved distribution
         let size;
-        if(Math.random() > 0.92) {
-          size = Math.random() * 7 + 6;
+        const sizeRandom = Math.random();
+        if(sizeRandom > 0.92) {
+          // Extra large stars (8% of stars)
+          size = Math.random() * 8 + 6; // 6-14px
           star.style.opacity = 0.95;
-        } else if(Math.random() > 0.7) {
-          size = Math.random() * 5 + 3;
+        } else if(sizeRandom > 0.75) {
+          // Medium stars (17% of stars)
+          size = Math.random() * 5 + 3; // 3-8px
           star.style.opacity = 0.9;
         } else {
-          size = Math.random() * 3 + 1.5;
-          star.style.opacity = 0.8 + Math.random() * 0.2;
+          // Smaller stars (75% of stars)
+          size = Math.random() * 2.5 + 1.5; // 1.5-4px
+          star.style.opacity = 0.7 + Math.random() * 0.3;
         }
         
         star.style.width = size + 'px';
         star.style.height = size + 'px';
-        star.style.animationDelay = Math.random() * 3 + 's';
-        star.style.animationDuration = (3 + Math.random() * 4) + 's';
         
-        // Stronger glow for better visibility
-        if (size > 5) {
-          star.style.boxShadow = `0 0 ${size*2}px ${size}px rgba(255, 255, 255, 0.9)`;
+        // Varied animation timing for more realistic twinkling
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.animationDuration = (3 + Math.random() * 7) + 's';
+        
+        // Stronger blue-tinted glow for better visibility
+        if (size > 6) {
+          star.style.boxShadow = `0 0 ${size*2.5}px ${size*1.2}px rgba(150, 200, 255, 0.8)`;
         } else if (size > 3) {
-          star.style.boxShadow = `0 0 ${size*2}px ${size/2}px rgba(255, 255, 255, 0.8)`;
+          star.style.boxShadow = `0 0 ${size*2}px ${size/1.5}px rgba(150, 200, 255, 0.7)`;
+        } else {
+          star.style.boxShadow = `0 0 ${size*1.5}px ${size/2}px rgba(150, 200, 255, 0.6)`;
         }
         
         starsContainer.appendChild(star);
+      }
+      
+      // Create a few shooting stars
+      createShootingStars(starsContainer, 3);
+    }
+    
+    // Add occasional shooting stars
+    function createShootingStars(container, count) {
+      for(let i=0; i<count; i++) {
+        setTimeout(() => {
+          const shooter = document.createElement('div');
+          shooter.className = 'shooting-star';
+          
+          // Random position at top of viewport
+          const startX = 20 + Math.random() * 60; // Between 20-80% of width
+          shooter.style.left = startX + '%';
+          shooter.style.top = Math.random() * 30 + '%'; // Top 30% of screen
+          
+          // Random size (always larger than regular stars)
+          const size = Math.random() * 4 + 3;
+          shooter.style.width = size + 'px';
+          shooter.style.height = size + 'px';
+          
+          // Random diagonal direction
+          const angle = 30 + Math.random() * 30; // 30-60 degrees
+          const distance = 20 + Math.random() * 30; // 20-50vh travel
+          
+          shooter.style.setProperty('--angle', angle + 'deg');
+          shooter.style.setProperty('--distance', distance + 'vh');
+          
+          // Random delay before each shooting star
+          shooter.style.animationDelay = (i * 7 + Math.random() * 15) + 's';
+          
+          container.appendChild(shooter);
+        }, 1000); // Small delay after page load
       }
     }
   </script>

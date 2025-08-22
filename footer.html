@@ -1,60 +1,238 @@
-<footer class="space-footer">
-  <div class="container">
-    <!-- Simple copyright line -->
-    <div class="footer-bottom">
-      <div class="row">
-        <div class="col-12 text-center">
-          <img src="images/logo.jpg" alt="OneHertzLabs" class="footer-logo-img" height="30">
-          <p>&copy; 2025 <span class="gradient-text">OneHertzLabs</span>. All rights reserved.</p>
-        </div>
-      </div>
-    </div>
+<footer>
+ 
+  
+  <div class="copyright">
+    <p>&copy; 2025 OneHertzLabs. All rights reserved.</p>
   </div>
   
+  <!-- Add a few small stars in the footer for consistency -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create a few small stars in the footer
+      const footer = document.querySelector('footer');
+      for(let i=0; i<15; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.position = 'absolute';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.opacity = 0.7;
+        star.style.animation = `twinkle ${3 + Math.random() * 3}s infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        footer.appendChild(star);
+      }
+      
+      // Remove all borders from all elements on the page
+      document.addEventListener('DOMContentLoaded', function() {
+        // This will remove all borders from all elements
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(element => {
+          element.style.border = 'none';
+          element.style.borderTop = 'none';
+          element.style.borderBottom = 'none';
+          element.style.borderLeft = 'none';
+          element.style.borderRight = 'none';
+          element.style.boxShadow = 'none';
+        });
+      });
+    });
+  </script>
+  
   <style>
-    .space-footer {
-      background: linear-gradient(to top, rgba(5, 8, 20, 0.95), rgba(8, 12, 25, 0.85));
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 1.5rem 0;
-      color: rgba(255, 255, 255, 0.8);
+    /* Global reset for all borders and lines */
+    *, *::before, *::after {
+      border: none !important;
+      border-top: none !important;
+      border-bottom: none !important;
+      border-left: none !important;
+      border-right: none !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+    
+    /* Override any HR elements or dividers */
+    hr, .divider, .separator, [class*="divider"], [class*="separator"], [class*="border"] {
+      display: none !important;
+    }
+    
+    /* Clean footer styling with no visible lines */
+    footer {
+      background: rgba(5, 10, 20, 0.6); /* Simplified background */
+      padding: 25px 5rem 15px;
+      text-align: center;
       position: relative;
-      z-index: 10;
+      z-index: 5;
+      backdrop-filter: blur(10px);
+      /* Ensure no outline or border */
+      outline: none !important;
+      border: none !important;
+      border-width: 0 !important;
+      margin-top: 0;
+      overflow: hidden;
+      /* Use gradient instead of border */
+      background: linear-gradient(to bottom, 
+                rgba(5, 10, 20, 0.3), 
+                rgba(5, 10, 20, 0.6));
     }
     
-    .footer-bottom {
-      width: 100%;
+    /* Override for main content sections */
+    main, section, header, article, aside, .container, .row, .col, [class*="container"], [class*="section"] {
+      border: none !important;
+      box-shadow: none !important;
     }
     
-    .footer-logo-img {
+    /* Specific override for navbar and headers */
+    .navbar, .nav, header, .header, .jumbotron, .hero {
+      border: none !important;
+      box-shadow: none !important;
+      border-bottom: none !important;
+    }
+    
+    /* Remove lines from tables */
+    table, tr, td, th, thead, tbody, tfoot {
+      border: none !important;
+      border-collapse: collapse !important;
+    }
+    
+    /* Remove the before pseudo-element that was creating the top line */
+    footer::before {
+      display: none !important;
+      content: none !important;
+    }
+    
+    /* Keep only the subtle glow effect with no line */
+    footer::after {
+      content: '';
+      position: absolute;
+      top: -50px; left: 0;
+      width: 100%; height: 50px;
+      background: radial-gradient(ellipse at center, 
+                  rgba(100, 200, 255, 0.15) 0%, 
+                  transparent 70%);
+      opacity: 0.3;
+      animation: footerGlow 5s infinite alternate;
+      border: none !important;
+    }
+    
+    @keyframes footerGlow {
+      0% { opacity: 0.2; transform: translateY(0); }
+      100% { opacity: 0.4; transform: translateY(5px); }
+    }
+    
+    /* Create smooth gradient transition instead of a line */
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 200px;
+      background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(5, 10, 20, 0.2) 75%,
+                rgba(5, 10, 20, 0.4) 100%);
+      pointer-events: none;
+      z-index: 4;
+      border: none !important;
+    }
+    
+    /* Logo styling */
+    .footer-logo {
       margin-bottom: 15px;
-      filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.3));
+      display: inline-block;
     }
     
-    .footer-bottom p {
+    .footer-logo img {
+      height: 40px;
+      filter: brightness(1.2) drop-shadow(0 0 10px rgba(100, 200, 255, 0.6));
+    }
+    
+    /* Copyright styling */
+    .copyright {
+      padding-top: 10px;
+      /* Remove any borders */
+      border: none !important;
+      border-top: none !important;
+    }
+    
+    .copyright p {
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.9rem;
       margin: 0;
-      line-height: 1.5;
     }
     
-    .gradient-text {
-      background: linear-gradient(45deg, #64c8ff, #ff9d64);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      font-weight: 500;
+    /* Fix footer to prevent extra space */
+    html, body {
+      min-height: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
     
-    @media (max-width: 767px) {
-      .space-footer {
-        padding: 1.2rem 0;
-      }
-      
-      .footer-logo-img {
-        height: 25px;
-        margin-bottom: 10px;
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    main {
+      flex: 1 0 auto;
+      position: relative;
+    }
+    
+    footer {
+      flex-shrink: 0;
+    }
+    
+    /* Add JavaScript to remove borders at runtime */
+    .line-remover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      footer {
+        padding: 20px 2rem 15px;
       }
     }
   </style>
+  
+  <!-- Add a script to forcibly remove all borders at runtime -->
+  <script>
+    // This function will run periodically to remove any borders that might be added by other scripts
+    function removeAllBorders() {
+      const allElements = document.querySelectorAll('*');
+      allElements.forEach(element => {
+        if (element.style) {
+          element.style.setProperty('border', 'none', 'important');
+          element.style.setProperty('border-top', 'none', 'important');
+          element.style.setProperty('border-bottom', 'none', 'important');
+          element.style.setProperty('border-left', 'none', 'important');
+          element.style.setProperty('border-right', 'none', 'important');
+          element.style.setProperty('box-shadow', 'none', 'important');
+        }
+      });
+      
+      // Add inline style override to the body
+      document.body.setAttribute('style', document.body.getAttribute('style') + '; border: none !important; box-shadow: none !important;');
+    }
+    
+    // Run initially and every second to catch any dynamic content
+    document.addEventListener('DOMContentLoaded', function() {
+      removeAllBorders();
+      setInterval(removeAllBorders, 1000);
+      
+      // Create an invisible div that forces removal of all borders
+      const lineRemover = document.createElement('div');
+      lineRemover.className = 'line-remover';
+      document.body.appendChild(lineRemover);
+    });
+  </script>
 </footer>
