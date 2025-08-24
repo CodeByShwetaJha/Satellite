@@ -4,8 +4,8 @@
   <div class="stars" id="stars"></div>
 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <!-- Brand with logo -->
+    <div class="container-fluid">
+      <!-- Brand with logo - with professional padding -->
       <a class="navbar-brand nav-link" href="#" data-page="home">   
           <img src="images/logo.png" alt="OneHertzLabs" class="logo-img">
       </a>
@@ -16,8 +16,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Navbar Links with space styling -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <!-- Navbar Links - with professional padding -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav"> 
         <ul class="navbar-nav space-nav">
           <li class="nav-item">
             <a class="nav-link active" href="#" data-page="home">Home</a>
@@ -25,22 +25,20 @@
           <li class="nav-item">
             <a class="nav-link" href="#" data-page="about">About</a>
           </li>
-
           <!-- Products dropdown -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Products
+              Platform
             </a>
             <ul class="dropdown-menu space-dropdown" aria-labelledby="productsDropdown">
-              <li><a class="dropdown-item" href="#" data-page="computing">Computing Device</a></li>
+              <li><a class="dropdown-item" href="#" data-page="computing">Computing Platform</a></li>
               <li><a class="dropdown-item" href="#" data-page="satellite">Satellite Platform</a></li>
+              <li><a class="dropdown-item" href="#" data-page="sensor_module">Sensor/Module Platform</a></li>
             </ul>
           </li>
-          
           <li class="nav-item">
             <a class="nav-link" href="#" data-page="contact">Contact</a>
           </li>
-          
         </ul>
       </div>
     </div>
@@ -160,61 +158,68 @@
       background: linear-gradient(to bottom, rgba(5, 15, 30, 0.9), rgba(3, 8, 20, 0.95)) !important;
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(100, 150, 200, 0.2); /* Blue tinted border */
-      padding: 5px 0;
+      padding: 0; /* Reduced from 5px to prevent navbar from growing too tall */
       transition: all 0.3s ease;
+      min-height: 0 !important; /* Force no minimum height */
+      height: auto !important; /* Automatic height based on content */
+      overflow: visible; /* Ensure logo can extend beyond navbar if needed */
     }
     
-    /* Adjust container width */
-    .navbar .container {
-      max-width: 1140px;
-      padding: 0 15px;
+    /* Updated container fluid for professional spacing */
+    .navbar .container-fluid {
+      padding-left: 3.5%; /* Professional spacing on left side */
+      padding-right: 3.5%; /* Professional spacing on right side */
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center; /* Center items vertically */
     }
-    
-    /* Logo styling - more compact with blue glow */
+
+    /* Remove unnecessary padding from navbar-brand */
     .navbar-brand {
+      margin-right: 0; 
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
       display: flex;
       align-items: center;
-      padding: 0;
-      position: relative;
-      margin-right: 20px;
     }
-    
+
+    /* Maximize logo size while maintaining navbar proportions */
     .logo-img {
-      height: 70px;
+      height: 160px; /* Increased for maximum size */
       width: auto;
-      filter: brightness(1.4) contrast(1.4) drop-shadow(0 0 15px rgba(100, 180, 255, 0.6)); /* Bluer drop shadow */
+      filter: brightness(1.4) contrast(1.4) drop-shadow(0 0 22px rgba(100, 180, 255, 0.8)); /* Enhanced glow */
       transition: all 0.4s ease;
       position: relative;
       z-index: 2;
-    }
+      padding: 3px 0; /* Reduced padding to prevent navbar growth */
+      margin-left: -15px; /* Increased negative margin to offset larger size */
+      object-fit: contain; /* Ensures logo doesn't overflow */
+      max-width: none; /* Remove max-width constraints */
+    } 
     
-    /* Add a subtle animated blue glow behind the logo */
+    /* Completely remove navbar-brand::before */
     .navbar-brand::before {
-      content: '';
-      position: absolute;
-      top: -12px; bottom: -12px;
-      left: -15px; right: -15px;
-      background: radial-gradient(ellipse at center, rgba(100, 180, 255, 0.15), transparent 75%); /* Bluer glow */
-      border-radius: 30px;
-      z-index: 1;
-      opacity: 0.6;
-      animation: logoPulse 3s infinite ease-in-out;
+      display: none !important; /* Force hide with !important to override all other rules */
+      content: none !important; /* Additional prevention */
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      animation: none !important;
     }
     
-    @keyframes logoPulse {
-      0%, 100% { opacity: 0.3; transform: scale(0.98); }
-      50% { opacity: 0.6; transform: scale(1.02); }
-    }
-    
-    /* Enhanced hover effects with blue */
+    /* Simplified hover effect with no box */
     .navbar-brand:hover .logo-img {
-      transform: translateY(-2px) scale(1.05);
-      filter: brightness(1.5) contrast(1.5) drop-shadow(0 0 18px rgba(100, 180, 255, 0.8)); /* Bluer drop shadow */
+      transform: translateY(-3px) scale(1.08); /* Slightly larger scale on hover */
+      filter: brightness(1.6) contrast(1.6) drop-shadow(0 0 25px rgba(100, 180, 255, 0.9)); /* Stronger glow */
     }
-    
+
+    /* Hover state completely removes box */
     .navbar-brand:hover::before {
-      animation-play-state: paused;
-      opacity: 0.7;
+      display: none !important;
+      opacity: 0 !important;
     }
     
     /* Nav links styling with blue accents */
@@ -282,18 +287,40 @@
     /* Fix for dropdown arrow alignment */
     .space-nav .dropdown-toggle::after {
       display: none !important;
-  }
+    }
     
     /* Make the dropdown toggle more polished */
     .space-nav .nav-link.dropdown-toggle {
       padding-right: 0.8rem;
-  }
+    }
     
     /* Adjust hover effect for dropdown menu */
     .space-nav .nav-item.dropdown .nav-link:hover::after {
       width: 50%;
     }
     
+    /* Add extra spacing between nav items for better readability */
+    .space-nav .nav-item {
+      margin-left: 2px;
+    }
+
+    /* Adjust navbar-collapse padding */
+    .navbar-collapse {
+      flex-grow: 0 !important;
+      width: auto !important;
+      padding-right: 0 !important;
+    }
+
+    /* Keep everything right-aligned within the navbar-collapse */
+    .navbar-nav {
+      margin-left: auto;
+    }
+
+    /* Remove any default arrow if present (Bootstrap might add one) */
+    .nav-link.dropdown-toggle .dropdown-arrow {
+      display: none;
+    }
+
     /* Compressed navbar on scroll with blue-black gradient */
     .navbar.scrolled {
       padding: 3px 0;
@@ -301,50 +328,35 @@
     }
     
     .navbar.scrolled .logo-img {
-      height: 50px;
+      height: 85px; /* Slightly larger than before */
       transition: all 0.3s ease;
     }
-    
-    .navbar.scrolled .navbar-brand::before {
-      top: -8px; bottom: -8px;
-      left: -10px; right: -10px;
-      transition: all 0.3s ease;
-    }
-    
-    /* Adjust navbar-nav spacing */
-    .navbar-nav {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    
-    /* Remove any extra padding in navbar-collapse */
-    .navbar-collapse {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    
 
-    /* Remove any default arrow if present (Bootstrap might add one) */
-  .nav-link.dropdown-toggle .dropdown-arrow {
-    display: none;
-  }
-    /* Hover dropdown */
-    @media(min-width: 992px) {
-      .nav-item.dropdown:hover .dropdown-menu {
-        display: block;
-        margin-top: 0;
-      }
-    }
-    
-    /* Responsive adjustments */
-    @media (min-width: 1200px) {
-      .logo-img {
-        height: 80px;
+    /* Media Queries for Responsive Design - CONSOLIDATED */
+    @media (min-width: 1400px) {
+      .navbar .container-fluid {
+        padding-left: 5%; /* More spacing on very large screens */
+        padding-right: 5%;
       }
       
-      .navbar-brand::before {
-        top: -14px; bottom: -14px;
-        left: -18px; right: -18px;
+      .logo-img {
+        height: 170px; /* Even larger on extra large screens */
+      }
+    }
+    
+    @media (min-width: 1200px) and (max-width: 1399px) {
+      .logo-img {
+        height: 150px;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .navbar-brand {
+        padding-left: 15px !important; /* Add padding for spacing on large screens */
+      }
+      
+      .navbar-collapse {
+        padding-right: 15px !important; /* Add padding for spacing on large screens */
       }
       
       .navbar {
@@ -352,14 +364,23 @@
       }
     }
     
+    /* Hover dropdown behavior */
+    @media(min-width: 992px) {
+      .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+    }
+    
+    /* Medium screens */
     @media (max-width: 992px) {
-      .logo-img {
-        height: 60px;
+      .navbar .container-fluid {
+        padding-left: 20px;
+        padding-right: 20px;
       }
       
-      .navbar-brand::before {
-        top: -10px; bottom: -10px;
-        left: -12px; right: -12px;
+      .logo-img {
+        height: 95px; /* Increased from 85px */
       }
       
       .navbar {
@@ -367,18 +388,19 @@
       }
     }
     
+    /* Small screens */
     @media (max-width: 767px) {
+      .navbar .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      
       .logo-img {
-        height: 50px;
+        height: 80px; /* Increased from 70px */
       }
       
       .navbar {
         padding: 4px 0;
-      }
-      
-      .navbar-brand::before {
-        top: -8px; bottom: -8px;
-        left: -10px; right: -10px;
       }
     }
   </style>

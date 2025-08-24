@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor Module - OneHertzLabs</title>
+  <!-- Add Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: rgba(0, 0, 0, 0.95) url('https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=2000') no-repeat center center fixed;
+      background-size: cover;
+      background-blend-mode: color;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      animation: colorPulse 20s infinite ease-in-out;
+    }
+
+    /* Add overlay with enhanced gradient for nebula effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, 
+                rgba(10, 15, 30, 0.7) 0%,
+                rgba(5, 8, 18, 0.75) 50%, 
+                rgba(2, 4, 12, 0.8) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    @keyframes colorPulse {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(15deg); }
+      100% { filter: hue-rotate(0deg); }
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      line-height: 1.7;
+    }
+
+    /* Stars background with improved design */
+    .stars {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    /* Create different colored stars */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+      box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7);
+      background: white;
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
+                  0 0 40px 20px rgba(255, 255, 255, 0.6);
+      animation: shoot 6s linear infinite;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    @keyframes shoot {
+      0% { 
+        opacity: 0;
+        transform: translate(0, 0); 
+      }
+      5% { 
+        opacity: 1; 
+      }
+      20% { 
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+        opacity: 0;
+      }
+      100% { 
+        opacity: 0;
+        transform: translate(calc(tan(var(--angle)) * var(--distance)), var(--distance));
+      }
+    }
+
+    /* Enhance star twinkling effect */
+    @keyframes twinkle {
+      0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1);
+        filter: blur(0px);
+      } 
+      50% { 
+        opacity: 1; 
+        transform: scale(1.8); 
+        box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
+        filter: blur(0.2px);
+      }
+    }
+    
+    /* Add nebula clouds effect - with green accent for sensors */
+    .nebula-clouds {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at center, 
+                  rgba(50, 150, 130, 0.1) 0%, 
+                  rgba(20, 80, 100, 0.05) 50%, 
+                  rgba(10, 40, 60, 0.02) 100%);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: screen;
+      filter: hue-rotate(145deg) brightness(1.2);
+      animation: nebulaFlow 120s infinite ease-in-out;
+    }
+
+    @keyframes nebulaFlow {
+      0% { transform: scale(1) rotate(0deg); filter: hue-rotate(145deg) brightness(1.2); }
+      50% { transform: scale(1.1) rotate(5deg); filter: hue-rotate(175deg) brightness(1.3); }
+      100% { transform: scale(1) rotate(0deg); filter: hue-rotate(145deg) brightness(1.2); }
+    }
+
+    /* Add this for additional depth with no pattern - green themed */
+    .nebula-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 40%, 
+                  rgba(100, 220, 180, 0.15) 0%, 
+                  rgba(70, 180, 150, 0.05) 30%, 
+                  transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+      filter: blur(40px);
+      animation: glowPulse 25s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    /* Header styling */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 1.5rem 5rem;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #64ff9d, #64c8ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(100, 220, 180, 0.4);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      background: linear-gradient(45deg, rgba(100, 220, 180, 0.1), rgba(100, 180, 255, 0.1));
+      backdrop-filter: blur(5px);
+    }
+
+    nav a:hover {
+      background: linear-gradient(45deg, rgba(100, 220, 180, 0.3), rgba(100, 180, 255, 0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(100, 220, 180, 0.3);
+    }
+
+    /* Sensor Section Styling */
+    .sensor-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .sensor-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .sensor-header h1 {
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, #64ff9d, #64c8ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(100, 220, 180, 0.4);
+    }
+
+    .sensor-header p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .sensor-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .sensor-card {
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.2), rgba(16, 59, 50, 0.1));
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 40px;
+      border: 1px solid rgba(100, 220, 180, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .sensor-card h2 {
+      color: #64ffa0;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(100, 220, 180, 0.4);
+    }
+
+    .sensor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .sensor-item {
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.3), rgba(16, 59, 50, 0.2));
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(100, 220, 180, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .sensor-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(100, 220, 180, 0.3);
+    }
+
+    .sensor-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #64ffa0;
+      text-shadow: 0 0 15px rgba(100, 220, 180, 0.7);
+    }
+
+    .sensor-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 30px;
+    }
+
+    .specs-table th,
+    .specs-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(100, 220, 180, 0.15);
+    }
+
+    .specs-table th {
+      color: #64ffa0;
+      font-weight: 600;
+      background: rgba(25, 68, 55, 0.3);
+    }
+
+    .specs-table tr:first-child th:first-child {
+      border-top-left-radius: 15px;
+    }
+
+    .specs-table tr:first-child th:last-child {
+      border-top-right-radius: 15px;
+    }
+
+    .specs-table tr:last-child td:first-child {
+      border-bottom-left-radius: 15px;
+    }
+
+    .specs-table tr:last-child td:last-child {
+      border-bottom-right-radius: 15px;
+    }
+
+    .specs-table tr:nth-child(odd) td {
+      background: rgba(25, 68, 55, 0.2);
+    }
+
+    .specs-table tr:nth-child(even) td {
+      background: rgba(16, 59, 50, 0.1);
+    }
+
+    .sensor-diagram {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.4), rgba(16, 59, 50, 0.2));
+      border-radius: 15px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(100, 220, 180, 0.15);
+    }
+
+    .sensor-diagram span {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Product Showcase Styling */
+    .product-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .product-item {
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.4), rgba(16, 59, 50, 0.3));
+      border-radius: 20px;
+      border: 1px solid rgba(100, 220, 180, 0.2);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .product-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(100, 220, 180, 0.2);
+      border-color: rgba(100, 220, 180, 0.4);
+    }
+
+    .product-header {
+      padding: 20px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(100, 220, 180, 0.15);
+    }
+
+    .product-header h3 {
+      font-size: 1.5rem;
+      margin: 0;
+      background: linear-gradient(45deg, #64ffa0, #64c8ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .product-badge {
+      background: linear-gradient(45deg, #64ffa0, #3dcc75);
+      color: #0a2018;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .product-badge-featured {
+      background: linear-gradient(45deg, #64c8ff, #4287b5);
+    }
+
+    /* Horizontal Product Layout Styling */
+    .product-showcase-horizontal {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      margin-top: 40px;
+    }
+
+    .product-item-horizontal {
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.4), rgba(16, 59, 50, 0.3));
+      border-radius: 20px;
+      border: 1px solid rgba(100, 220, 180, 0.2);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .product-item-horizontal:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(100, 220, 180, 0.2);
+      border-color: rgba(100, 220, 180, 0.4);
+    }
+
+    .product-header-horizontal {
+      padding: 20px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(100, 220, 180, 0.15);
+      background: rgba(16, 59, 50, 0.4);
+    }
+
+    .product-header-horizontal h3 {
+      font-size: 1.6rem;
+      margin: 0;
+      background: linear-gradient(45deg, #64ffa0, #64c8ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .product-content {
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* FIXED: Enhanced Product Image Gallery Styling */
+    .product-image-gallery {
+      width: 350px;
+      flex-shrink: 0;
+      margin-right: 20px;
+      position: relative;
+    }
+
+    .product-image-main {
+      height: 280px;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid rgba(100, 220, 180, 0.3);
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.6), rgba(16, 59, 50, 0.4));
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-image-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+      opacity: 1;
+    }
+
+    .product-image-main:hover {
+      border-color: rgba(100, 255, 160, 0.6);
+      box-shadow: 0 0 20px rgba(100, 255, 160, 0.3);
+    }
+
+    .product-image-thumbnails {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .product-image-thumbnails img {
+      width: 65px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid rgba(100, 220, 180, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .product-image-thumbnails img:hover {
+      transform: translateY(-3px);
+      border-color: rgba(100, 220, 180, 0.8);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      opacity: 1;
+    }
+
+    .product-image-thumbnails img.active {
+      border-color: rgba(100, 255, 160, 0.9);
+      box-shadow: 0 0 15px rgba(100, 255, 160, 0.5);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* FIXED: Image Navigation Controls */
+    .image-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .product-image-main:hover .image-controls {
+      opacity: 1;
+    }
+
+    .image-nav {
+      background: rgba(100, 255, 160, 0.9) !important;
+      color: #0a2018 !important;
+      border: 2px solid rgba(255, 255, 255, 0.8) !important;
+      width: 45px !important;
+      height: 45px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      margin: 0 12px !important;
+      transition: all 0.3s ease !important;
+      pointer-events: auto !important;
+      z-index: 15 !important;
+      font-size: 18px !important;
+      font-weight: bold !important;
+      text-decoration: none !important;
+      user-select: none !important;
+    }
+
+    .image-nav:hover {
+      background: rgba(255, 255, 255, 0.95) !important;
+      color: #64ffa0 !important;
+      transform: scale(1.15) !important;
+      box-shadow: 0 4px 15px rgba(100, 255, 160, 0.6) !important;
+    }
+
+    /* FIXED: Arrow styling */
+    .arrow {
+      border: solid currentColor;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .right {
+      transform: rotate(-45deg);
+      margin-left: -2px;
+    }
+
+    .left {
+      transform: rotate(135deg);
+      margin-right: -2px;
+    }
+
+    /* FIXED: Image counter - always visible and prominent */
+    .image-counter {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.8) !important;
+      color: rgba(100, 255, 160, 1) !important;
+      padding: 6px 12px !important;
+      border-radius: 15px !important;
+      font-size: 13px !important;
+      font-weight: bold !important;
+      border: 1px solid rgba(100, 255, 160, 0.5) !important;
+      z-index: 12 !important;
+      min-width: 45px !important;
+      text-align: center !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .product-features {
+      flex-grow: 1;
+      padding: 20px 25px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .spec-highlight-pill {
+      background: rgba(100, 255, 160, 0.15);
+      color: #64ffa0;
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border: 1px solid rgba(100, 220, 180, 0.3);
+    }
+
+    .features-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 20px;
+    }
+
+    .features-table th, 
+    .features-table td {
+      padding: 10px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(100, 220, 180, 0.15);
+    }
+
+    .features-table th {
+      width: 30%;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      background: rgba(25, 68, 55, 0.3);
+    }
+
+    .features-table tr:first-child th {
+      border-top-left-radius: 8px;
+    }
+
+    .features-table tr:first-child td {
+      border-top-right-radius: 8px;
+    }
+
+    .features-table tr:last-child th {
+      border-bottom-left-radius: 8px;
+    }
+
+    .features-table tr:last-child td {
+      border-bottom-right-radius: 8px;
+    }
+
+    .features-table tr:nth-child(odd) td {
+      background: rgba(25, 68, 55, 0.2);
+    }
+
+    .features-table tr:nth-child(even) td {
+      background: rgba(16, 59, 50, 0.1);
+    }
+
+    .product-description-horizontal {
+      margin-top: 20px;
+    }
+
+    .product-description-horizontal p {
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .product-btn-horizontal {
+      display: inline-block;
+      padding: 10px 25px;
+      background: rgba(100, 220, 180, 0.15);
+      color: #64ffa0;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(100, 220, 180, 0.2);
+      text-align: center;
+    }
+
+    .product-btn-horizontal:hover {
+      background: rgba(100, 220, 180, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 5rem;
+      position: relative;
+      z-index: 5;
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(25, 68, 55, 0.3), rgba(16, 59, 50, 0.2));
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 60px 40px;
+      border: 1px solid rgba(100, 220, 180, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .cta-content p {
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #64ff9d, #64c8ff);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.7s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(100, 220, 180, 0.5);
+    }
+
+    .cta-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Floating circuit animation - green variant for sensors */
+    .circuit-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.1;
+    }
+
+    .circuit-line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, #64ffa0, transparent);
+      height: 1px;
+      width: 100px;
+      opacity: 0;
+      animation: circuit-flow 8s linear infinite;
+    }
+
+    .circuit-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #64ffa0;
+      box-shadow: 0 0 10px 2px rgba(100, 220, 180, 0.7);
+      opacity: 0;
+      animation: circuit-pulse 6s linear infinite;
+    }
+
+    @keyframes circuit-flow {
+      0% {
+        opacity: 0;
+        width: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        width: 100px;
+      }
+    }
+
+    @keyframes circuit-pulse {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .sensor-section, .cta-section {
+        padding: 80px 2rem;
+      }
+      
+      .sensor-header h1 {
+        font-size: 2.8rem;
+      }
+      
+      .product-content {
+        flex-direction: column;
+      }
+      
+      .product-image-gallery {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .product-features {
+        padding-top: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sensor-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .sensor-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-image-main {
+        height: 250px;
+      }
+      
+      .feature-header {
+        justify-content: center;
+      }
+      
+      .features-table th {
+        width: 40%;
+      }
+      
+      .product-image-thumbnails img {
+        width: 55px;
+        height: 45px;
+      }
+      
+      .image-nav {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 16px !important;
+      }
+    }
+
+    /* Footer styles */
+    footer {
+      background: linear-gradient(to bottom, rgba(10, 30, 25, 0.6), rgba(5, 20, 15, 0.8));
+      padding: 40px 5rem 20px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      backdrop-filter: blur(10px);
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="nebula-clouds"></div>
+  <div class="nebula-glow"></div>
+  <div class="stars" id="stars"></div>
+  <div class="circuit-animation" id="circuitAnimation"></div>
+
+  <section class="sensor-section">
+    <div class="sensor-header">
+      <h1>Sensor Modules</h1>
+      <p>Advanced environmental and positioning sensors designed for satellite deployment. Our rugged, high-precision modules capture critical data in the harshest environments with minimal power consumption.</p>
+    </div>
+    
+    <div class="sensor-container">
+      <!-- Product Review Card -->
+      <div class="sensor-card">
+        <h2>Product Line</h2>
+        <p>Explore our suite of high-performance sensor modules designed for diverse space and terrestrial applications.</p>
+        
+        <!-- Product Showcase with Horizontal Layout -->
+        <div class="product-showcase-horizontal">
+          <!-- Product 1: SensArray Micro -->
+          <div class="product-item-horizontal">
+            <div class="product-header-horizontal">
+              <h3>SensArray™ Micro</h3>
+              <span class="product-badge">New</span>
+            </div>
+            
+            <div class="product-content">
+              <div class="product-image-gallery">
+                <div class="product-image-main" data-product="sensarray">
+                  <img src="https://via.placeholder.com/350x280/143C2B/64FFA0?text=SensArray+Main" 
+                       id="sensarray-main-img" alt="SensArray Micro Module">
+                  
+                  <div class="image-controls">
+                    <button class="image-nav prev" type="button" data-product="sensarray" data-direction="prev">
+                      <i class="arrow left"></i>
+                    </button>
+                    <button class="image-nav next" type="button" data-product="sensarray" data-direction="next">
+                      <i class="arrow right"></i>
+                    </button>
+                  </div>
+                  <div class="image-counter" id="sensarray-counter">1/5</div>
+                </div>
+                
+                <div class="product-image-thumbnails">
+                  <img src="https://via.placeholder.com/65x50/143C2B/64FFA0?text=1" alt="Main View" 
+                      class="thumbnail active" data-product="sensarray" data-index="0">
+                  <img src="https://via.placeholder.com/65x50/1a4a3a/64FFA0?text=2" alt="Internal View" 
+                      class="thumbnail" data-product="sensarray" data-index="1">
+                  <img src="https://via.placeholder.com/65x50/2a5a4a/64FFA0?text=3" alt="Angle1" 
+                      class="thumbnail" data-product="sensarray" data-index="2">
+                  <img src="https://via.placeholder.com/65x50/3a6a5a/64FFA0?text=4" alt="Components" 
+                      class="thumbnail" data-product="sensarray" data-index="3">
+                  <img src="https://via.placeholder.com/65x50/4a7a6a/64FFA0?text=5" alt="Usage" 
+                      class="thumbnail" data-product="sensarray" data-index="4">
+                </div>
+              </div>
+              
+              <div class="product-features">
+                <div class="feature-header">
+                  <span class="spec-highlight-pill">12g Weight</span>
+                  <span class="spec-highlight-pill">25 μW Standby</span>
+                  <span class="spec-highlight-pill">8 Sensors</span>
+                </div>
+                
+                <table class="features-table">
+                  <tr>
+                    <th>Dimensions</th>
+                    <td>25mm × 25mm × 5mm</td>
+                  </tr>
+                  <tr>
+                    <th>Sensor Types</th>
+                    <td>Temperature, Humidity, Pressure, Gas, Radiation, Magnetometer (3-axis)</td>
+                  </tr>
+                  <tr>
+                    <th>Interface</th>
+                    <td>I2C, SPI, UART, CAN</td>
+                  </tr>
+                  <tr>
+                    <th>Power Modes</th>
+                    <td>Active, Sampling, Low-Power, Hibernation</td>
+                  </tr>
+                  <tr>
+                    <th>Use Case</th>
+                    <td>Scientific Missions, Environmental Monitoring</td>
+                  </tr>
+                  <tr>
+                    <th>Radiation Rating</th>
+                    <td>20 krad (Si) TID, SEL immune</td>
+                  </tr>
+                </table>
+                
+                <div class="product-description-horizontal">
+                  <p>Our flagship environmental sensing platform with radiation hardening. Includes a comprehensive suite of sensors for complete environmental analysis with mission-critical reliability.</p>
+                  <a href="#" class="product-btn-horizontal">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 2: EnviroSense Pro -->
+          <div class="product-item-horizontal">
+            <div class="product-header-horizontal">
+              <h3>EnviroSense™ Pro</h3>
+              <span class="product-badge product-badge-featured">Featured</span>
+            </div>
+            
+            <div class="product-content">
+              <div class="product-image-gallery">
+                <div class="product-image-main" data-product="envirosense">
+                  <img src="https://via.placeholder.com/350x280/143C2B/64FFA0?text=EnviroSense+Main" 
+                       id="envirosense-main-img" alt="EnviroSense Pro Module">
+                  
+                  <div class="image-controls">
+                    <button class="image-nav prev" type="button" data-product="envirosense" data-direction="prev">
+                      <i class="arrow left"></i>
+                    </button>
+                    <button class="image-nav next" type="button" data-product="envirosense" data-direction="next">
+                      <i class="arrow right"></i>
+                    </button>
+                  </div>
+                  <div class="image-counter" id="envirosense-counter">1/5</div>
+                </div>
+                
+                <div class="product-image-thumbnails">
+                  <img src="https://via.placeholder.com/65x50/143C2B/64FFA0?text=1" alt="Main" 
+                      class="thumbnail active" data-product="envirosense" data-index="0">
+                  <img src="https://via.placeholder.com/65x50/1a4a3a/64FFA0?text=2" alt="Internal" 
+                      class="thumbnail" data-product="envirosense" data-index="1">
+                  <img src="https://via.placeholder.com/65x50/2a5a4a/64FFA0?text=3" alt="Deployment" 
+                      class="thumbnail" data-product="envirosense" data-index="2">
+                  <img src="https://via.placeholder.com/65x50/3a6a5a/64FFA0?text=4" alt="Angle1" 
+                      class="thumbnail" data-product="envirosense" data-index="3">
+                  <img src="https://via.placeholder.com/65x50/4a7a6a/64FFA0?text=5" alt="Angle2" 
+                      class="thumbnail" data-product="envirosense" data-index="4">
+                </div>
+              </div>
+              
+              <div class="product-features">
+                <div class="feature-header">
+                  <span class="spec-highlight-pill">12g Weight</span>
+                  <span class="spec-highlight-pill">25 μW Standby</span>
+                  <span class="spec-highlight-pill">8 Sensors</span>
+                </div>
+                
+                <table class="features-table">
+                  <tr>
+                    <th>Dimensions</th>
+                    <td>25mm × 25mm × 5mm</td>
+                  </tr>
+                  <tr>
+                    <th>Sensor Types</th>
+                    <td>Temperature, Humidity, Pressure, Gas, Radiation, Magnetometer</td>
+                  </tr>
+                  <tr>
+                    <th>Interface</th>
+                    <td>I2C, SPI, UART, CAN</td>
+                  </tr>
+                  <tr>
+                    <th>Power Modes</th>
+                    <td>Active, Sampling, Low-Power, Hibernation</td>
+                  </tr>
+                  <tr>
+                    <th>Use Case</th>
+                    <td>Scientific Missions, Environmental Monitoring</td>
+                  </tr>
+                  <tr>
+                    <th>Radiation Rating</th>
+                    <td>20 krad (Si) TID, SEL immune</td>
+                  </tr>
+                </table>
+                
+                <div class="product-description-horizontal">
+                  <p>Advanced environmental sensing platform with comprehensive monitoring capabilities for extreme conditions.</p>
+                  <a href="#" class="product-btn-horizontal">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 3: PositionTrack X2 -->
+          <div class="product-item-horizontal">
+            <div class="product-header-horizontal">
+              <h3>PositionTrack™ X2</h3>
+            </div>
+            
+            <div class="product-content">
+              <div class="product-image-gallery">
+                <div class="product-image-main" data-product="positiontrack">
+                  <img src="https://via.placeholder.com/350x280/143C2B/64FFA0?text=PositionTrack+Main" 
+                       id="positiontrack-main-img" alt="PositionTrack X2 Module">
+                  
+                  <div class="image-controls">
+                    <button class="image-nav prev" type="button" data-product="positiontrack" data-direction="prev">
+                      <i class="arrow left"></i>
+                    </button>
+                    <button class="image-nav next" type="button" data-product="positiontrack" data-direction="next">
+                      <i class="arrow right"></i>
+                    </button>
+                  </div>
+                  <div class="image-counter" id="positiontrack-counter">1/4</div>
+                </div>
+                
+                <div class="product-image-thumbnails">
+                  <img src="https://via.placeholder.com/65x50/143C2B/64FFA0?text=1" alt="Main" 
+                      class="thumbnail active" data-product="positiontrack" data-index="0">
+                  <img src="https://via.placeholder.com/65x50/1a4a3a/64FFA0?text=2" alt="Components" 
+                      class="thumbnail" data-product="positiontrack" data-index="1">
+                  <img src="https://via.placeholder.com/65x50/2a5a4a/64FFA0?text=3" alt="Mounted" 
+                      class="thumbnail" data-product="positiontrack" data-index="2">
+                  <img src="https://via.placeholder.com/65x50/3a6a5a/64FFA0?text=4" alt="In Use" 
+                      class="thumbnail" data-product="positiontrack" data-index="3">
+                </div>
+              </div>
+
+              <div class="product-features">
+                <div class="feature-header">
+                  <span class="spec-highlight-pill">15g Weight</span>
+                  <span class="spec-highlight-pill">1.2m Accuracy</span>
+                  <span class="spec-highlight-pill">4 Constellations</span>
+                </div>
+                
+                <table class="features-table">
+                  <tr>
+                    <th>Dimensions</th>
+                    <td>30mm × 25mm × 6mm</td>
+                  </tr>
+                  <tr>
+                    <th>GNSS Support</th>
+                    <td>GPS, GLONASS, Galileo, BeiDou</td>
+                  </tr>
+                  <tr>
+                    <th>Interface</th>
+                    <td>UART, USB, I2C</td>
+                  </tr>
+                  <tr>
+                    <th>Power Modes</th>
+                    <td>Active, Tracking, Backup, Power Save</td>
+                  </tr>
+                  <tr>
+                    <th>Use Case</th>
+                    <td>Navigation, Formation Flying, Earth Observation</td>
+                  </tr>
+                  <tr>
+                    <th>Additional Features</th>
+                    <td>Integrated RTC, Onboard Flash, Anti-spoofing</td>
+                  </tr>
+                </table>
+                
+                <div class="product-description-horizontal">
+                  <p>Advanced positioning module supporting multiple satellite constellations with sub-meter accuracy and low power consumption for precision navigation and location-based applications.</p>
+                  <a href="#" class="product-btn-horizontal">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    console.log('🚀 COMPLETE Sensor Module Script Loading...');
+
+    // Define gallery data with placeholder images
+    const productGalleries = {
+      sensarray: {
+        current: 0,
+        images: [
+          "https://via.placeholder.com/350x280/143C2B/64FFA0?text=SensArray+Image+1",
+          "https://via.placeholder.com/350x280/1a4a3a/64FFA0?text=SensArray+Image+2", 
+          "https://via.placeholder.com/350x280/2a5a4a/64FFA0?text=SensArray+Image+3",
+          "https://via.placeholder.com/350x280/3a6a5a/64FFA0?text=SensArray+Image+4",
+          "https://via.placeholder.com/350x280/4a7a6a/64FFA0?text=SensArray+Image+5"
+        ]
+      },
+      envirosense: {
+        current: 0,
+        images: [
+          "https://via.placeholder.com/350x280/143C2B/64FFA0?text=EnviroSense+Image+1",
+          "https://via.placeholder.com/350x280/1a4a3a/64FFA0?text=EnviroSense+Image+2",
+          "https://via.placeholder.com/350x280/2a5a4a/64FFA0?text=EnviroSense+Image+3",
+          "https://via.placeholder.com/350x280/3a6a5a/64FFA0?text=EnviroSense+Image+4",
+          "https://via.placeholder.com/350x280/4a7a6a/64FFA0?text=EnviroSense+Image+5"
+        ]
+      },
+      positiontrack: {
+        current: 0,
+        images: [
+          "https://via.placeholder.com/350x280/143C2B/64FFA0?text=PositionTrack+Image+1",
+          "https://via.placeholder.com/350x280/1a4a3a/64FFA0?text=PositionTrack+Image+2",
+          "https://via.placeholder.com/350x280/2a5a4a/64FFA0?text=PositionTrack+Image+3",
+          "https://via.placeholder.com/350x280/3a6a5a/64FFA0?text=PositionTrack+Image+4"
+        ]
+      }
+    };
+
+    // COMPLETE: Main navigation function
+    function changeImage(product, newIndex) {
+      console.log(`🖼️ COMPLETE: Changing ${product} to image ${newIndex}`);
+      
+      const gallery = productGalleries[product];
+      if (!gallery) {
+        console.error(`❌ Gallery not found: ${product}`);
+        return;
+      }
+
+      // Update current index
+      gallery.current = newIndex;
+      
+      // Get elements
+      const mainImg = document.getElementById(`${product}-main-img`);
+      const counter = document.getElementById(`${product}-counter`);
+      const thumbnails = document.querySelectorAll(`[data-product="${product}"].thumbnail`);
+      
+      if (!mainImg) {
+        console.error(`❌ Main image not found: ${product}-main-img`);
+        return;
+      }
+
+      // Fade out, change image, fade in
+      mainImg.style.opacity = '0.3';
+      
+      setTimeout(() => {
+        mainImg.src = gallery.images[newIndex];
+        mainImg.style.opacity = '1';
+        
+        // Update counter
+        if (counter) {
+          counter.textContent = `${newIndex + 1}/${gallery.images.length}`;
+        }
+        
+        // Update thumbnails
+        thumbnails.forEach((thumb, i) => {
+          if (i === newIndex) {
+            thumb.classList.add('active');
+          } else {
+            thumb.classList.remove('active');
+          }
+        });
+        
+        console.log(`✅ COMPLETE: Successfully changed ${product} to image ${newIndex + 1}`);
+      }, 200);
+    }
+
+    // COMPLETE: Navigation functions
+    function navigatePrevious(product) {
+      const gallery = productGalleries[product];
+      let newIndex = gallery.current - 1;
+      if (newIndex < 0) newIndex = gallery.images.length - 1;
+      changeImage(product, newIndex);
+    }
+
+    function navigateNext(product) {
+      const gallery = productGalleries[product];
+      let newIndex = gallery.current + 1;
+      if (newIndex >= gallery.images.length) newIndex = 0;
+      changeImage(product, newIndex);
+    }
+
+    // COMPLETE: Event listeners setup
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🔧 COMPLETE: Setting up event listeners...');
+      
+      // Navigation button listeners
+      document.querySelectorAll('.image-nav').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const product = this.getAttribute('data-product');
+          const direction = this.getAttribute('data-direction');
+          
+          console.log(`🔥 COMPLETE: Button clicked - ${product} ${direction}`);
+          
+          if (direction === 'prev') {
+            navigatePrevious(product);
+          } else {
+            navigateNext(product);
+          }
+        });
+      });
+      
+      // Thumbnail click listeners
+      document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const product = this.getAttribute('data-product');
+          const index = parseInt(this.getAttribute('data-index'));
+          
+          console.log(`👆 COMPLETE: Thumbnail clicked - ${product} index ${index}`);
+          
+          changeImage(product, index);
+        });
+      });
+      
+      // Initialize first images
+      Object.keys(productGalleries).forEach(product => {
+        changeImage(product, 0);
+      });
+      
+      // Initialize visual effects
+      createStars();
+      createCircuitElements();
+      
+      console.log('✅ COMPLETE: All event listeners and effects initialized!');
+    });
+
+    // COMPLETE: Visual effect functions
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      if (!starsContainer) return;
+      
+      starsContainer.innerHTML = '';
+      const numberOfStars = 300;
+      
+      for(let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random animation delay for more natural effect
+        star.style.animationDelay = Math.random() * 3 + 's';
+        
+        starsContainer.appendChild(star);
+      }
+    }
+
+    function createCircuitElements() {
+      const circuitContainer = document.getElementById('circuitAnimation');
+      if (!circuitContainer) return;
+      
+      circuitContainer.innerHTML = '';
+      const lineCount = 20;
+      const dotCount = 15;
+      
+      // Create circuit lines
+      for(let i = 0; i < lineCount; i++) {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 'circuit-line';
+          
+          line.style.left = Math.random() * 100 + '%';
+          line.style.top = Math.random() * 100 + '%';
+          line.style.animationDelay = Math.random() * 8 + 's';
+          
+          circuitContainer.appendChild(line);
+        }, i * 50);
+      }
+      
+      // Create circuit dots
+      for(let i = 0; i < dotCount; i++) {
+        setTimeout(() => {
+          const dot = document.createElement('div');
+          dot.className = 'circuit-dot';
+          
+          dot.style.left = Math.random() * 100 + '%';
+          dot.style.top = Math.random() * 100 + '%';
+          dot.style.animationDelay = Math.random() * 6 + 's';
+          
+          circuitContainer.appendChild(dot);
+        }, i * 75);
+      }
+    }
+
+    console.log('🏁 COMPLETE: Script fully loaded and ready!');
+  </script>
+</body>
+</html>
