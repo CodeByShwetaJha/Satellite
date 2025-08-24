@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Computing Device - OneHertzLabs</title>
-  <!-- Add Google Fonts for better typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+  <title>Edge Computing | HertZ Labs</title>
+  <!-- Keep global CSS for fonts only -->
+  <link rel="stylesheet" href="../styles/global.css">
+
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Raleway', sans-serif;
+      font-family: 'Raleway', sans-serif; /* From global.css */
       background: rgba(0, 0, 0, 0.95) url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2000') no-repeat center center fixed;
       background-size: cover;
       background-blend-mode: color;
@@ -40,7 +41,7 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', sans-serif; /* From global.css - this ensures consistent fonts */
       font-weight: 700;
       letter-spacing: 0.5px;
     }
@@ -541,7 +542,7 @@
   <div class="stars" id="stars"></div>
   <div class="circuit-animation" id="circuitAnimation"></div>
 
-  
+  <div class="background-container"></div>
 
   <section class="computing-section">
     <div class="computing-header">

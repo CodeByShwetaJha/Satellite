@@ -1,0 +1,39 @@
+/* FONTS AND BACKGROUND ONLY */
+
+/* Import Montserrat font for all pages */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@300;400;500;700;900&family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Simple Animated Background - Only when .background-container exists */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, #0f1419 0%, #000000 100%);
+}
+
+.background-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, rgba(100, 200, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(100, 255, 157, 0.2), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(74, 144, 226, 0.1), transparent),
+        radial-gradient(2px 2px at 160px 120px, rgba(74, 144, 226, 0.2), transparent);
+    background-size: 200px 200px, 300px 300px, 250px 250px, 350px 350px, 400px 400px;
+    animation: backgroundMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    0% { transform: translate(0px, 0px) rotate(0deg); }
+    100% { transform: translate(50px, 50px) rotate(180deg); }
+}
+
+/* NO OTHER STYLES - EACH PAGE KEEPS ITS OWN STYLING */

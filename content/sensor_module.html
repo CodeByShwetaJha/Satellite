@@ -81,7 +81,7 @@
         }
 
         .main-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'Montserrat', sans-serif;
             font-size: 3.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
@@ -111,7 +111,7 @@
         }
 
         .section-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
             font-weight: 600;
             background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
@@ -182,7 +182,7 @@
         }
 
         .product-name {
-            font-family: 'Orbitron', monospace;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.2rem;
             font-weight: 600;
             background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
@@ -350,7 +350,7 @@
         }
 
         .specs-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.4rem;
             font-weight: 600;
             color: #74b9ff;
@@ -676,12 +676,15 @@
                             </div>
                         </div>
 
+                        
+                         
                         <div class="view-details-section">
-                            <button class="view-details-btn" onclick="viewDetails('sensarray')">
-                                <span>View Details</span>
-                                <span>→</span>
-                            </button>
-                        </div>
+    <button class="view-details-btn" onclick="navigateToDetails()">
+        <span>View Details</span>
+        <span>→</span>
+    </button>
+</div>
+
                     </div>
                 </div>
             </div>
@@ -813,25 +816,36 @@
 
             console.log(`✅ ${gallery.images.length} thumbnails created for ${productName}`);
         }
-
-        // View Details function
-        function viewDetails(productName) {
-            // Add smooth animation
-            const btn = event.target.closest('.view-details-btn');
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 150);
-
-            // You can customize this to show a modal, navigate to another page, etc.
-            alert(`Opening detailed specifications for ${productName.toUpperCase()}...`);
-            
-            // Example: Open detailed view
-            console.log(`View Details clicked for: ${productName}`);
-            
-            // Future: Navigate to detailed product page
-            // window.location.href = `sensor-details.html?product=${productName}`;
+// Navigation function that works in all contexts
+function navigateToDetails() {
+    console.log('🚀 Navigating to sensor details...');
+    
+    try {
+        // Check if we're in a dynamically loaded context (main page)
+        const isInMainPage = window.location.pathname.includes('index.html') || 
+                            window.location.pathname === '/' ||
+                            document.getElementById('main-content') !== null;
+        
+        if (isInMainPage && typeof window.loadContent === 'function') {
+            // We're in the main page with dynamic loading
+            console.log('🔄 Loading details dynamically...');
+            window.loadContent('content/sensor_details.html');
+        } else if (isInMainPage) {
+            // We're in main page but loadContent might not be available
+            console.log('🔄 Navigating to details in main context...');
+            window.location.href = 'content/sensor_details.html';
+        } else {
+            // We're in standalone page context
+            console.log('🔗 Direct navigation to details...');
+            window.location.href = 'sensor_details.html';
         }
+        
+    } catch (error) {
+        console.error('Navigation error:', error);
+        // Fallback - try direct navigation
+        window.location.href = 'sensor_details.html';
+    }
+}
 
         console.log('🏁 Sensor Modules Gallery System Ready');
     </script>
