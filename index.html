@@ -1,102 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HertZ Labs - IoT Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;700;900&family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Raleway', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(ellipse at center, #0f1419 0%, #000000 100%);
-        }
-
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 800px;
-            margin-bottom: 40px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-link {
-            background: linear-gradient(135deg, #4a90e2 0%, #74b9ff 100%);
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .nav-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HertZ Labs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="hero">
-        <h1 class="hero-title">HertZ Labs</h1>
-        <p class="hero-subtitle">
-            Advanced IoT solutions and satellite communication technologies for the next generation of connected devices.
-        </p>
-        
-        <div class="nav-links">
-            <a href="content/sensor_module.html" class="nav-link">🔬 Sensor Modules</a>
-            <a href="content/satellite.html" class="nav-link">🛰️ Satellite Systems</a>
-            <a href="content/computing.html" class="nav-link">💻 Edge Computing</a>
-        </div>
-    </div>
+  <!-- Dynamic Header -->
+  <div id="header"></div>
 
-    <script>
-        console.log('🚀 HertZ Labs - GitHub Pages Version Loaded');
-    </script>
+  <!-- Main Content Area -->
+  <main id="main-content" class="container my-5">
+    <!-- Home page will load here by default -->
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1);
+  
+      // Load header
+      fetch(basePath + 'header.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('header').innerHTML = html;
+          attachNavHandlers();
+        });
+  
+      // Load footer
+      fetch(basePath + 'footer.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('footer').innerHTML = html;
+        });
+  
+      // Load home content
+      loadContent(basePath + 'content/home.html');
+  
+      // Navigation handlers
+      function attachNavHandlers() {
+        document.querySelectorAll('#header .nav-link, #header .dropdown-item').forEach(link => {
+          link.addEventListener('click', function(event) {
+            const page = this.getAttribute('data-page');
+            if (page) {
+              event.preventDefault();
+              loadContent(basePath + `content/${page}.html`);
+            }
+          });
+        });
+      }
+  
+      // Content loading function
+      function loadContent(url) {
+        console.log(`🔄 Loading content: ${url}`);
+        
+        fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('main-content').innerHTML = html;
+            
+            // Execute scripts in loaded content
+            const scripts = document.getElementById('main-content').querySelectorAll('script');
+            scripts.forEach(oldScript => {
+              const newScript = document.createElement('script');
+              if (oldScript.src) {
+                newScript.src = oldScript.src;
+              } else {
+                newScript.textContent = oldScript.textContent;
+              }
+              oldScript.remove();
+              document.getElementById('main-content').appendChild(newScript);
+            });
+            
+            console.log(`✅ Content loaded: ${url}`);
+          })
+          .catch(err => {
+            console.error(`❌ Failed to load: ${url}`, err);
+            document.getElementById('main-content').innerHTML = "<h2>Page not found</h2>";
+          });
+      }
+
+      // Make loadContent available globally for navigation
+      window.loadContent = loadContent;
+
+      console.log('🏁 HertZ Labs loaded and ready!');
+    });
+  </script>
 </body>
 </html>
