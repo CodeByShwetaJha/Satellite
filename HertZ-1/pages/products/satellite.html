@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satellite IoT Gateway - OneHertzLabs</title>
+  
+  <!-- Link to Global CSS -->
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  
+  <style>
+     body {
+      overflow-x: hidden;
+    }
+
+    /* Hero content title - Professional */
+    .hero-content h1 { 
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #64c8ff, #9b85ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: visible;
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 20px rgba(100, 200, 255, 0.3); }
+      100% { text-shadow: 0 0 40px rgba(100, 200, 255, 0.8); }
+    }
+
+    /* Professional spacing and layout */
+    .content-section {
+      padding: 80px 5rem 60px;
+      position: relative;
+      z-index: 5;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, #64c8ff, #ff9d64);
+      border-radius: 2px;
+      animation: underlineGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes underlineGlow {
+      0% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.5); }
+      100% { box-shadow: 0 0 25px rgba(100, 200, 255, 0.9); }
+    }
+
+    .section-header p {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+      margin: 20px auto 0;
+      line-height: 1.6;
+    }
+
+    /* Hero section - More spacious and professional */
+    /* Ensure smooth transition between hero and content without color change */
+.hero-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 120px 5rem 80px; /* Reduced bottom padding */
+  gap: 60px;
+  position: relative;
+  z-index: 5;
+  margin-top: 60px;
+  min-height: 75vh;
+  overflow: visible;
+  /* Softer fade out that blends better */
+  mask: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+  -webkit-mask: linear-gradient(to bottom, black 0%, black 90%, transparent 100%);
+}
+
+    /* Enhanced background */
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(100, 200, 255, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 157, 100, 0.15), transparent 40%),
+        linear-gradient(135deg, rgba(100, 200, 255, 0.05), transparent 60%);
+      animation: backgroundPulse 15s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes backgroundPulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 650px;
+      z-index: 10;
+      animation: slideInLeft 1.2s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      0% { 
+        opacity: 0; 
+        transform: translateX(-100px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+    
+    .hero-content p { 
+      font-size: 1.4rem; 
+      line-height: 1.7; 
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 3rem;
+      text-align: left;
+      animation: fadeInUp 1.2s ease-out 0.4s both;
+    }
+
+    @keyframes fadeInUp {
+      0% { 
+        opacity: 0; 
+        transform: translateY(40px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    /* Enhanced CTA Button */
+    .hero-cta-container {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      width: 100%;
+      margin-top: 2rem;
+      animation: bounceIn 1.2s ease-out 0.8s both;
+    }
+
+    @keyframes bounceIn {
+      0% { 
+        opacity: 0; 
+        transform: scale(0.3); 
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.05); 
+      }
+      70% { 
+        transform: scale(0.9); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1); 
+      }
+    }
+
+    .hero-cta-button {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 60px;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(100, 200, 255, 0.4);
+      border: 2px solid transparent;
+    }
+
+    .hero-cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.8s;
+    }
+
+    .hero-cta-button:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(100, 200, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-cta-button:hover::before {
+      left: 100%;
+    }
+
+    .secondary-cta-button {
+      display: inline-block;
+      padding: 1.2rem 2.5rem;
+      background: transparent;
+      color: #64c8ff;
+      text-decoration: none;
+      border-radius: 60px;
+      font-weight: bold;
+      border: 2px solid #64c8ff;
+      transition: all 0.4s ease;
+      font-size: 1.05rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .secondary-cta-button:hover {
+      background: #64c8ff;
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(100, 200, 255, 0.6);
+    }
+
+    /* Professional hero visual */
+    .hero-visual {
+      flex: 0 0 500px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 500px;
+      overflow: visible;
+      animation: slideInRight 1.2s ease-out 0.3s both;
+       /* Add smooth fade transition */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 10;
+    }
+
+    @keyframes slideInRight {
+      0% { 
+        opacity: 0; 
+        transform: translateX(100px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    .earth-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      z-index: 5;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      margin-top: 60px;
+    }
+
+    .earth-container:hover {
+      transform: scale(1.08);
+    }
+
+    .earth {
+      width: 380px;
+      height: 380px;
+      animation: earthFloat 8s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(100, 200, 255, 0.6));
+      transition: all 0.4s ease;
+    }
+
+    .earth:hover {
+      filter: drop-shadow(0 0 50px rgba(100, 200, 255, 0.9));
+    }
+
+    @keyframes earthFloat { 
+      0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+      } 
+      25% { 
+        transform: translateY(-20px) rotate(1deg); 
+      }
+      50% { 
+        transform: translateY(-30px) rotate(0deg); 
+      }
+      75% { 
+        transform: translateY(-20px) rotate(-1deg); 
+      }
+    }
+
+   /* Ensure the orbit container maintains perfect circle */
+.satellite-orbit {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 480px;
+  height: 480px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: orbit 20s linear infinite;
+  z-index: 2;
+  overflow: visible;
+  /* Ensure perfect circular motion */
+  border: 1px solid rgba(100, 200, 255, 0.1); /* Debug border to see orbit path */
+}
+
+/* Add scaling animation to make orbit less intrusive */
+@keyframes orbitScale {
+  0%, 100% { 
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  50% { 
+    transform: translate(-50%, -50%) rotate(180deg) scale(0.9);
+  }
+}
+
+@keyframes orbit { 
+  0% { transform: translate(-50%, -50%) rotate(0deg); } 
+  100% { transform: translate(-50%, -50%) rotate(360deg); } 
+}
+
+    .satellite-orbit::before {
+      content: '';
+      position: absolute;
+      top: -3px; left: -3px;
+      right: -3px; bottom: -3px;
+      border-radius: 50%;
+      border: 3px solid rgba(100, 200, 255, 0.3);
+      animation: orbitRing 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbitRing {
+      0% { 
+        border-color: rgba(100, 200, 255, 0.3); 
+        transform: scale(1);
+      }
+      100% { 
+        border-color: rgba(100, 200, 255, 0.7); 
+        transform: scale(1.03);
+      }
+    }
+
+   /* Alternative approach - using a more precise circular positioning */
+.satellite {
+  position: absolute;
+  /* Position satellite at the edge of the circular orbit */
+  top: 50%;
+  left: calc(100% - 60px); /* Position at right edge minus half satellite width */
+  width: 120px;
+  height: auto;
+  transform: translateY(-50%);
+  z-index: 15;
+  filter: drop-shadow(0 0 20px rgba(255, 180, 100, 0.8));
+  flex-shrink: 0;
+  object-fit: contain;
+  transition: all 0.4s ease;
+  animation: satelliteBob 3s ease-in-out infinite alternate;
+}
+
+    @keyframes satelliteBob {
+      0% { 
+        filter: drop-shadow(0 0 20px rgba(255, 180, 100, 0.8)); 
+        transform: translateY(-50%) scale(1);
+      }
+      100% { 
+        filter: drop-shadow(0 0 35px rgba(255, 180, 100, 1)); 
+        transform: translateY(-50%) scale(1.05);
+      }
+    }
+
+    @keyframes orbit { 
+      0% { transform: translate(-50%, -50%) rotate(0deg); } 
+      100% { transform: translate(-50%, -50%) rotate(360deg); } 
+    }
+
+    /* Signal waves - more subtle */
+   /* Adjust signal waves to match new positioning */
+   .signal-wave {
+  display: none; /* Hide the entire signal waves container */
+}
+
+
+
+@keyframes signalPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0.8;
+    border-color: rgba(100, 200, 255, 0.4);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+    border-color: rgba(100, 200, 255, 0);
+  }
+}
+
+    .signal-wave:nth-child(1) {
+      width: 300px; height: 300px;
+      animation-delay: 0s;
+    }
+
+    .signal-wave:nth-child(2) {
+      width: 380px; height: 380px;
+      animation-delay: 2s;
+    }
+
+    .signal-wave:nth-child(3) {
+      width: 460px; height: 460px;
+      animation-delay: 4s;
+    }
+
+    @keyframes signalPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.6);
+        opacity: 1;
+        border-color: rgba(100, 200, 255, 0.6);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+        border-color: rgba(100, 200, 255, 0);
+      }
+    }
+
+/* Create smooth transition to content sections */
+#learn-more.content-section {
+  padding: 120px 5rem 60px; /* Increased top padding */
+  position: relative;
+  z-index: 10; /* Higher z-index than hero */
+  background: transparent; /* Make it transparent to show global background */
+  border-radius: 0; /* Remove rounded corners */
+  margin-top: -60px; /* Keep the overlap */
+}
+
+/* Add subtle backdrop blur to challenge section */
+#learn-more.content-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(5, 8, 18, 0.1) 0%, 
+    rgba(12, 20, 35, 0.15) 50%,
+    transparent 100%
+  );
+  backdrop-filter: blur(5px); /* Reduced blur */
+  border-radius: 0; /* Remove rounded corners */
+  z-index: -1;
+}
+
+    /* Cards with enhanced animations */
+    .dual-card-container {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+/* Smooth scroll behavior when satellite is visible */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+}
+
+/* Add intersection observer class for smooth blending */
+.hero-visual.scroll-fade {
+  opacity: 0.7;
+  transform: scale(0.95) translateY(-20px);
+}
+
+    .info-card {
+      flex: 1;
+      background: linear-gradient(145deg, rgba(15, 25, 45, 0.8), rgba(8, 15, 30, 0.6));
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 40px;
+      border: 2px solid rgba(100, 200, 255, 0.2);
+      transition: all 0.5s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(60px);
+      animation: cardSlideUp 0.8s ease-out forwards;
+    }
+
+    .info-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes cardSlideUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at top right, rgba(100, 200, 255, 0.15), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      border-radius: 25px;
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
+    }
+
+    .info-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(100, 200, 255, 0.4);
+      border-color: rgba(100, 200, 255, 0.5);
+    }
+
+    .info-card h3 {
+      color: #64c8ff;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
+    }
+
+    .info-card h3 i {
+      margin-right: 12px;
+      font-size: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .info-card:hover h3 i {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .info-card p {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+
+    /* Architecture section */
+    .architecture-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+      position: relative;
+      gap: 30px;
+    }
+
+    .architecture-item {
+      text-align: center;
+      width: 250px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .architecture-item:nth-child(2) { animation-delay: 0.2s; }
+    .architecture-item:nth-child(3) { animation-delay: 0.4s; }
+
+    .architecture-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background: linear-gradient(145deg, rgba(25, 35, 65, 0.6), rgba(15, 25, 45, 0.4));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #64c8ff;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .architecture-icon:hover {
+      transform: scale(1.1) rotateY(180deg);
+      background: linear-gradient(145deg, rgba(100, 200, 255, 0.3), rgba(255, 157, 100, 0.2));
+    }
+
+    .architecture-icon::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px;
+      right: -6px; bottom: -6px;
+      border-radius: 50%;
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .architecture-item h4 {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
+    }
+
+    .architecture-item p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .architecture-connection {
+      position: absolute;
+      top: 50px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(100, 200, 255, 0.6), transparent);
+      z-index: 1;
+      animation: connectionFlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes connectionFlow {
+      0% { opacity: 0.4; transform: scaleX(0.8); }
+      100% { opacity: 1; transform: scaleX(1); }
+    }
+
+    /* Enhanced grids */
+    .features-grid, .applications-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card, .app-card {
+      background: linear-gradient(145deg, rgba(25, 35, 65, 0.6), rgba(15, 25, 45, 0.4));
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 30px;
+      border: 2px solid rgba(100, 200, 255, 0.2);
+      transition: all 0.5s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: cardSlideUp 0.6s ease-out forwards;
+      text-align: center;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+    .feature-card:nth-child(4) { animation-delay: 0.4s; }
+    .feature-card:nth-child(5) { animation-delay: 0.5s; }
+    .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .app-card:nth-child(1) { animation-delay: 0.1s; }
+    .app-card:nth-child(2) { animation-delay: 0.2s; }
+    .app-card:nth-child(3) { animation-delay: 0.3s; }
+    .app-card:nth-child(4) { animation-delay: 0.4s; }
+    .app-card:nth-child(5) { animation-delay: 0.5s; }
+    .app-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .feature-card::before, .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      border-radius: 25px;
+    }
+
+    .feature-card:hover::before, .app-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card:hover, .app-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(100, 200, 255, 0.4);
+      border-color: rgba(100, 200, 255, 0.5);
+    }
+
+    .feature-card h4, .app-card h4 {
+      color: #64c8ff;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 0 12px rgba(100, 200, 255, 0.4);
+    }
+
+    .feature-card h4 i, .app-card h4 i {
+      margin-right: 10px;
+      font-size: 1.6rem;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover h4 i, .app-card:hover h4 i {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .feature-card p, .app-card p {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Vision CTA section */
+    .cta-section {
+      text-align: center;
+      padding: 80px 60px;
+      background: linear-gradient(145deg, rgba(100, 200, 255, 0.15), rgba(255, 157, 100, 0.1));
+      border-radius: 30px;
+      margin: 80px auto 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      opacity: 0;
+      transform: translateY(60px);
+      animation: fadeInUp 1s ease-out 0.8s forwards;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(100, 200, 255, 0.08), transparent);
+      animation: ctaShine 10s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes ctaShine {
+      0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    .cta-content p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    /* Final CTA section */
+    .final-cta-section {
+      text-align: center;
+      padding: 80px 60px;
+      background: linear-gradient(145deg, rgba(100, 200, 255, 0.2), rgba(255, 157, 100, 0.15));
+      border-radius: 30px;
+      margin: 60px auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      opacity: 0;
+      transform: translateY(60px);
+      animation: fadeInUp 1s ease-out 1.2s forwards;
+    }
+
+    .final-cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .final-cta-content h2 {
+      font-size: 2.8rem;
+      background: linear-gradient(45deg, #64c8ff, #ff9d64);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    .final-cta-content p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .final-cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .hero-section {
+        gap: 40px;
+        padding: 100px 3rem 60px;
+      }
+      
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+      
+      .features-grid, .applications-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+      
+      .content-section {
+  padding: 80px 5rem 60px;
+  position: relative;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: transparent; /* Ensure all sections are transparent */
+}
+
+      .architecture-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+      
+      .architecture-connection {
+        display: none;
+      }
+    }
+
+   /* Responsive adjustments */
+   @media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 2rem 60px; /* Adjusted mobile padding */
+    mask: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+    -webkit-mask: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+  }
+  
+  #learn-more.content-section {
+    padding: 80px 2rem 40px;
+    margin-top: -40px;
+    background: transparent; /* Keep transparent */
+  }
+  
+  #learn-more.content-section::before {
+    background: linear-gradient(135deg, 
+      rgba(5, 8, 18, 0.05) 0%, 
+      rgba(12, 20, 35, 0.1) 50%,
+      transparent 100%
+    ); /* Even more subtle on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 60px 1.5rem 50px;
+  }
+  
+  #learn-more.content-section {
+    padding: 60px 1.5rem 30px;
+    margin-top: -30px;
+    background: transparent; /* Keep transparent */
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Global Header will be inserted here by global.css -->
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Satellite IoT Gateway</h1>
+      <p>Enabling seamless connectivity for IoT devices worldwide without terrestrial network limitations. From remote wilderness to open oceans — universal connectivity redefined.</p>
+      <div class="hero-cta-container">
+        <a href="#features" class="hero-cta-button">Explore Solution</a>
+        <a href="#contact" class="secondary-cta-button">Get Started</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      
+      <div class="earth-container">
+        <img src="assets/images/earth.png" class="earth" alt="Earth">
+        <div class="satellite-orbit">
+          <img src="assets/images/satellite.png" class="satellite" alt="Satellite">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- Challenge & Solution -->
+    <section id="learn-more" class="content-section">
+      <div class="section-header">
+        <h2>Challenge & Solution</h2>
+        <p>Overcoming the connectivity barriers for global IoT deployment</p>
+      </div>
+      <div class="dual-card-container">
+        <div class="info-card">
+          <h3><i>🌍</i> The Challenge</h3>
+          <p>Traditional IoT networks rely on terrestrial infrastructure, leaving remote areas and oceans without connectivity. This limits the potential for truly global IoT applications and leaves critical data gaps.</p>
+        </div>
+        <div class="info-card">
+          <h3><i>🛰️</i> Our Solution</h3>
+          <p>Our satellite-based LoRa gateway provides continuous global coverage, enabling IoT devices to transmit data from anywhere on Earth without depending on local infrastructure or traditional internet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Communication Architecture -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Communication Architecture</h2>
+        <p>A seamless end-to-end data transmission system</p>
+      </div>
+      <div class="architecture-container">
+        <div class="architecture-connection"></div>
+        <div class="architecture-item">
+          <div class="architecture-icon">📡</div>
+          <h4>IoT Devices</h4>
+          <p>LoRa-enabled sensors collect and transmit data to orbiting satellites</p>
+        </div>
+        <div class="architecture-item">
+          <div class="architecture-icon">🛰️</div>
+          <h4>Satellite Gateway</h4>
+          <p>Our satellite network receives, processes and relays data across the globe</p>
+        </div>
+        <div class="architecture-item">
+          <div class="architecture-icon">🌐</div>
+          <h4>Ground Station</h4>
+          <p>Ground infrastructure receives satellite data and integrates with cloud platforms</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="content-section">
+      <div class="section-header">
+        <h2>Key Features</h2>
+        <p>Advanced capabilities designed for global deployment</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h4><i>🌐</i> No Internet Required</h4>
+          <p>Functions independently of terrestrial networks and traditional connectivity infrastructure</p>
+        </div>
+        <div class="feature-card">
+          <h4><i>🗺️</i> Global Coverage</h4>
+          <p>Enables data transmission from any point on Earth, regardless of location or infrastructure</p>
+        </div>
+        <div class="feature-card">
+          <h4><i>🔋</i> Low Power</h4>
+          <p>Optimized for ultra-low power consumption, extending device battery life for years</p>
+        </div>
+        <div class="feature-card">
+          <h4><i>📈</i> Scalable</h4>
+          <p>Supports thousands of devices simultaneously with flexible deployment options</p>
+        </div>
+        <div class="feature-card">
+          <h4><i>🔒</i> Secure</h4>
+          <p>End-to-end encrypted communication with military-grade security protocols</p>
+        </div>
+        <div class="feature-card">
+          <h4><i>☁️</i> Cloud Integration</h4>
+          <p>Seamless API integration with major cloud providers and data analytics platforms</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Applications -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Applications</h2>
+        <p>Transforming industries through global connectivity</p>
+      </div>
+      <div class="applications-grid">
+        <div class="app-card">
+          <h4><i>🌾</i> Agriculture</h4>
+          <p>Monitor crops, soil conditions, and equipment in remote farming regions</p>
+        </div>
+        <div class="app-card">
+          <h4><i>🌲</i> Forests & Wildlife</h4>
+          <p>Track wildlife movements, detect forest fires, and monitor conservation areas</p>
+        </div>
+        <div class="app-card">
+          <h4><i>🚢</i> Maritime</h4>
+          <p>Enable vessel tracking, equipment monitoring, and data collection across oceans</p>
+        </div>
+        <div class="app-card">
+          <h4><i>⛽</i> Oil, Gas & Mining</h4>
+          <p>Monitor remote extraction sites, pipelines, and critical infrastructure</p>
+        </div>
+        <div class="app-card">
+          <h4><i>🚨</i> Disaster Management</h4>
+          <p>Maintain communication during emergencies when terrestrial networks fail</p>
+        </div>
+        <div class="app-card">
+          <h4><i>🌡️</i> Environmental</h4>
+          <p>Collect climate, water quality, and environmental data from remote locations</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Our Vision</h2>
+        <p>We're building a future where every IoT device can connect from anywhere on Earth. From the deepest oceans to remote mountain peaks, from dense jungles to isolated deserts — our technology enables a truly connected planet.</p>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="contact" class="final-cta-section">
+      <div class="final-cta-content">
+        <h2>Ready to Connect Globally?</h2>
+        <p>Transform your IoT deployments with satellite connectivity. Join leading enterprises who trust our technology for mission-critical applications.</p>
+        <div class="final-cta-buttons">
+          <a href="pages/contact.html" class="hero-cta-button">Schedule Demo</a>
+          <a href="#" class="secondary-cta-button">Download Specs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer will be inserted here by global.css -->
+  
+ <!-- filepath: /c:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ-1/pages/products/satellite.html -->
+<!-- filepath: /c:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ-1/pages/products/satellite.html -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add delay to ensure CSS is fully loaded and rendered
+    setTimeout(() => {
+      initializeButtonHandlers();
+    }, 800); // 800ms delay for CSS to settle
+    
+    // Additional delay for interactive elements
+    setTimeout(() => {
+      initializeInteractiveElements();
+    }, 1200); // 1.2s delay for animations to complete
+  });
+
+  function initializeButtonHandlers() {
+    // Enhanced smooth scrolling with proper delays
+    const buttons = document.querySelectorAll('a[href^="#"]');
+    buttons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Add small delay before processing click
+        setTimeout(() => {
+          const targetId = this.getAttribute('href').substring(1);
+          const target = document.getElementById(targetId);
+          
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 50); // 50ms delay before scroll action
+      });
+
+      // Add visual feedback with delays
+      button.addEventListener('mousedown', function() {
+        setTimeout(() => {
+          this.style.transform = 'scale(0.95)';
+        }, 10);
+      });
+
+      button.addEventListener('mouseup', function() {
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 100);
+      });
+
+      button.addEventListener('mouseleave', function() {
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 50);
+      });
+    });
+    
+   // Handle external links (like Schedule Demo button)
+   const externalButtons = document.querySelectorAll('a[href$=".html"]');
+  externalButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      // Add visual feedback
+      this.style.transform = 'scale(0.95)';
+      this.innerHTML = 'Loading...';
+      this.style.opacity = '0.7';
+
+      setTimeout(() => {
+        this.style.transform = '';
+        // Allow natural navigation to occur
+        window.location.href = this.href;
+      }, 150);
+    });
+
+    // Ensure external buttons are also clickable
+    button.style.pointerEvents = 'all';
+    button.style.cursor = 'pointer';
+  });
+
+  // Ensure buttons are clickable
+  const allButtons = document.querySelectorAll('a[href^="#"], a[href$=".html"]');
+  allButtons.forEach(button => {
+    button.style.pointerEvents = 'all';
+    button.style.cursor = 'pointer';
+  });
+
+    // Ensure buttons are clickable
+    buttons.forEach(button => {
+      button.style.pointerEvents = 'all';
+      button.style.cursor = 'pointer';
+    });
+  }
+
+  function initializeInteractiveElements() {
+    // Interactive Earth and Satellite with delays
+    const earthContainer = document.querySelector('.earth-container');
+    const satellite = document.querySelector('.satellite');
+    const heroVisual = document.querySelector('.hero-visual');
+
+    if (earthContainer && satellite) {
+      earthContainer.addEventListener('click', function() {
+        setTimeout(() => {
+          this.style.transform = 'scale(1.2) rotate(15deg)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1.08)';
+          }, 400);
+        }, 50);
+      });
+
+      satellite.addEventListener('mouseenter', function() {
+        setTimeout(() => {
+          this.style.animationPlayState = 'paused';
+          this.style.transform = 'translateY(-50%) scale(1.4) rotate(20deg)';
+        }, 30);
+      });
+
+      satellite.addEventListener('mouseleave', function() {
+        setTimeout(() => {
+          this.style.animationPlayState = 'running';
+          this.style.transform = 'translateY(-50%) scale(1)';
+        }, 30);
+      });
+    }
+
+    // Add scroll-based blending for hero visual
+    if (heroVisual) {
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.intersectionRatio < 0.5) {
+            heroVisual.classList.add('scroll-fade');
+          } else {
+            heroVisual.classList.remove('scroll-fade');
+          }
+        });
+      }, {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin: '0px 0px -100px 0px'
+      });
+      
+      scrollObserver.observe(heroVisual);
+    }
+
+    // Intersection Observer with delay for content sections
+    setTimeout(() => {
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, 100);
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements
+      const animatedElements = document.querySelectorAll('.info-card, .feature-card, .app-card, .architecture-item, .cta-section, .final-cta-section');
+      animatedElements.forEach(el => observer.observe(el));
+    }, 200);
+  }
+
+  // Additional safety check for page fully loaded
+  window.addEventListener('load', function() {
+    // Final check after everything is loaded
+    setTimeout(() => {
+      const buttons = document.querySelectorAll('a[href^="#"]');
+      buttons.forEach(button => {
+        // Ensure buttons are clickable
+        button.style.pointerEvents = 'all';
+        button.style.cursor = 'pointer';
+        button.style.zIndex = '999';
+      });
+    }, 300);
+  });
+
+  // Backup initialization if needed
+  setTimeout(() => {
+    const buttons = document.querySelectorAll('a[href^="#"]');
+    if (buttons.length > 0 && !buttons[0].onclick) {
+      console.log('Backup initialization triggered');
+      initializeButtonHandlers();
+    }
+  }, 2000); // 2 second fallback
+
+  // Debug function to check if buttons are working
+  function debugButtons() {
+    const buttons = document.querySelectorAll('a[href^="#"]');
+    console.log('Found buttons:', buttons.length);
+    buttons.forEach((btn, index) => {
+      console.log(`Button ${index}:`, btn.href, btn.style.pointerEvents);
+    });
+  }
+
+  // Call debug after 3 seconds
+  setTimeout(debugButtons, 3000);
+</script>
+
+</body>
+</html>

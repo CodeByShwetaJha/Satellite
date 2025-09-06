@@ -1,0 +1,288 @@
+<!-- SIMPLE MINIMAL FOOTER -->
+<footer class="footer-container">
+  <div class="footer-content">
+      <!-- Simple Footer Content -->
+      <div class="footer-grid">
+          <!-- Copyright Section - CENTERED -->
+          <div class="footer-copyright">
+              <p>&copy; 2024 OneHertzLabs. All rights reserved.</p>
+          </div>
+      </div>
+  </div>
+</footer>
+
+<style>
+/* MINIMAL FOOTER STYLES - EXACT HEADER COLOR MATCH */
+.footer-container {
+  position: relative !important;
+  background: #000000 !important; /* EXACT MATCH TO HEADER AND MAIN CONTENT */
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-top: none !important;
+  transform: translate3d(0, 0, 0) !important;
+  z-index: 10 !important;
+  min-height: 80px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* REMOVE THE BLENDING BRIDGE */
+.footer-container::before {
+  display: none !important;
+}
+
+/* Main footer content - REDUCED WIDTH */
+.footer-content {
+  display: block !important;
+  padding: 1.5rem 0 1rem 0 !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+
+/* CENTERED Grid Layout */
+.footer-grid {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 1rem !important;
+  text-align: center !important;
+  background: transparent !important;
+}
+
+/* Copyright styling - CENTERED */
+.footer-copyright {
+  text-align: center !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+
+.footer-copyright p {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+  font-weight: 300 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px !important;
+  transition: color 0.3s ease !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.footer-copyright p:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* PERFECT COLOR MATCH - NO GRADIENT, SOLID BACKGROUND */
+.footer-container {
+  background: #0a0a0a !important; /* SOLID COLOR - EXACT MATCH TO HEADER */
+  border-top: none !important;
+  box-shadow: none !important;
+  /* REMOVE THE GRADIENT - IT WAS CAUSING COLOR DIFFERENCE */
+}
+
+/* FORCE EXACT BACKGROUND COLOR OVERRIDE */
+.footer-container,
+.footer-container::before,
+.footer-container::after {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  background-image: none !important;
+  background-gradient: none !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .footer-grid {
+      padding: 0 1rem !important;
+      justify-content: center !important;
+      text-align: center !important;
+  }
+  
+  .footer-copyright {
+      text-align: center !important;
+  }
+  
+  .footer-content {
+      padding: 1.2rem 0 0.8rem 0 !important;
+      max-width: 600px !important;
+  }
+  
+  .footer-container {
+      min-height: 70px !important;
+      background: #0a0a0a !important; /* ENSURE COLOR CONSISTENCY */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+      padding: 0 0.8rem !important;
+  }
+  
+  .footer-copyright p {
+      font-size: 0.8rem !important;
+      line-height: 1.3 !important;
+  }
+  
+  .footer-content {
+      padding: 1rem 0 0.6rem 0 !important;
+      max-width: 400px !important;
+  }
+  
+  .footer-container {
+      min-height: 60px !important;
+      background: #0a0a0a !important; /* ENSURE COLOR CONSISTENCY */
+  }
+}
+
+/* ENSURE NO VISIBLE LINES OR BORDERS */
+.footer-container,
+.footer-content,
+.footer-grid,
+.footer-copyright,
+.footer-copyright p {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* FORCE EXACT COLOR MATCH TO HEADER */
+.footer-container {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  text-align: center !important;
+  background: #0a0a0a !important; /* REPEATED FOR EMPHASIS */
+  background-color: #0a0a0a !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🎯 Color-Matched Footer loaded successfully');
+  
+  // Force footer visibility and EXACT COLOR MATCH
+  const footerContainer = document.querySelector('.footer-container');
+  if (footerContainer) {
+      footerContainer.style.display = 'block';
+      footerContainer.style.visibility = 'visible';
+      footerContainer.style.opacity = '1';
+      footerContainer.style.position = 'relative';
+      footerContainer.style.zIndex = '1000';
+      footerContainer.style.textAlign = 'center';
+      footerContainer.style.borderTop = 'none';
+      footerContainer.style.boxShadow = 'none';
+      
+      // FORCE EXACT BACKGROUND COLOR TO MATCH HEADER
+      footerContainer.style.background = '#0a0a0a';
+      footerContainer.style.backgroundColor = '#0a0a0a';
+      footerContainer.style.backgroundImage = 'none';
+      
+      console.log('✅ Color-Matched Footer visibility and color forced');
+      
+      // Log footer dimensions for debugging
+      setTimeout(() => {
+          const rect = footerContainer.getBoundingClientRect();
+          const computedStyle = window.getComputedStyle(footerContainer);
+          console.log('📏 Color-Matched Footer info:', {
+              width: rect.width,
+              height: rect.height,
+              backgroundColor: computedStyle.backgroundColor,
+              background: computedStyle.background
+          });
+      }, 100);
+  } else {
+      console.log('❌ Color-Matched Footer container not found');
+  }
+  
+  // Force copyright text to be centered
+  const copyrightText = document.querySelector('.footer-copyright p');
+  if (copyrightText) {
+      copyrightText.style.textAlign = 'center';
+      copyrightText.style.width = '100%';
+      copyrightText.style.display = 'block';
+      copyrightText.style.border = 'none';
+      copyrightText.style.background = 'transparent';
+      console.log('✅ Copyright text forced to center');
+  }
+  
+  // Auto-update year if needed
+  const currentYear = new Date().getFullYear();
+  if (copyrightText && currentYear > 2024) {
+      copyrightText.innerHTML = copyrightText.innerHTML.replace('2024', currentYear);
+      console.log('📅 Copyright year updated to:', currentYear);
+  }
+  
+  // FORCE EXACT COLOR MATCH - REMOVE ANY COLOR DIFFERENCES
+  setTimeout(() => {
+      const footer = document.querySelector('.footer-container');
+      if (footer) {
+          // OVERRIDE ANY INHERITED STYLES
+          footer.style.background = '#0a0a0a';
+          footer.style.backgroundColor = '#0a0a0a';
+          footer.style.backgroundImage = 'none';
+          footer.style.backgroundGradient = 'none';
+          
+          // Remove any computed style conflicts
+          const allFooterElements = document.querySelectorAll('.footer-container, .footer-content, .footer-grid, .footer-copyright, .footer-copyright p');
+          allFooterElements.forEach(element => {
+              element.style.border = 'none';
+              element.style.borderTop = 'none';
+              element.style.borderBottom = 'none';
+              element.style.boxShadow = 'none';
+              element.style.outline = 'none';
+          });
+          
+          console.log('🎨 Footer color forced to exact match: #0a0a0a');
+      }
+  }, 200);
+  
+  // Simple visibility check
+  const footerCheck = setInterval(() => {
+      const footer = document.querySelector('.footer-container');
+      if (footer) {
+          const isVisible = footer.offsetHeight > 0 && 
+                           getComputedStyle(footer).visibility !== 'hidden' && 
+                           getComputedStyle(footer).display !== 'none';
+          
+          if (isVisible) {
+              console.log('✅ Color-Matched Footer is visible and has height:', footer.offsetHeight);
+              
+              // DOUBLE-CHECK COLOR MATCH
+              const bgColor = getComputedStyle(footer).backgroundColor;
+              console.log('🎨 Footer background color:', bgColor);
+              
+              clearInterval(footerCheck);
+          } else {
+              console.log('⚠️ Color-Matched Footer exists but not visible, forcing visibility...');
+              footer.style.display = 'block';
+              footer.style.visibility = 'visible';
+              footer.style.opacity = '1';
+              footer.style.minHeight = '80px';
+              footer.style.textAlign = 'center';
+              footer.style.borderTop = 'none';
+              footer.style.background = '#0a0a0a';
+              footer.style.backgroundColor = '#0a0a0a';
+          }
+      }
+  }, 500);
+  
+  // Clear check after 3 seconds
+  setTimeout(() => clearInterval(footerCheck), 3000);
+  
+  console.log('✅ Color-Matched Footer initialization complete');
+});
+</script>
