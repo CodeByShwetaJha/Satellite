@@ -8,6 +8,7 @@ INTEGRATION INSTRUCTIONS:
 2. Remove or comment out the old sensorGalleries object in your HTML
 
 3. Your gallery will now have these products:
+   • envirosense: 2 images
    • sensarray: 2 images
 
 4. Update your HTML gallery sections to match these names:

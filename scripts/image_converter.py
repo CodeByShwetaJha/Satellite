@@ -6,7 +6,7 @@ from datetime import datetime
 
 def detailed_folder_scan():
     """Detailed scan to see exactly what's in your folders"""
-    base_path = Path("C:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ")
+    base_path = Path("C:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ-1/assets")
     sensors_path = base_path / "images" / "Sensors"
     
     print("🔍 DETAILED FOLDER SCAN")
@@ -160,7 +160,7 @@ def generate_javascript_file(galleries):
         print("❌ No galleries to generate")
         return
     
-    base_path = Path("C:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ")
+    base_path = Path("C:/Users/skumari/OneDrive - Hexagon/Attachments/Project Satelite/HertZ-1")
     scripts_path = base_path / "scripts"
     scripts_path.mkdir(exist_ok=True)
     

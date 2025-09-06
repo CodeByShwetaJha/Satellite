@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SensArray™ Micro - Detailed Specifications | HertZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;700;900&family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, #0f1419 0%, #000000 100%);
+        }
+
+        .background-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(74, 144, 226, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(74, 144, 226, 0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(74, 144, 226, 0.1), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(74, 144, 226, 0.2), transparent);
+            background-size: 200px 200px, 300px 300px, 250px 250px, 350px 350px, 400px 400px;
+            animation: backgroundMove 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #4a90e2 0%, #74b9ff 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .content-section {
+            background: linear-gradient(145deg, rgba(15, 20, 25, 0.95), rgba(26, 26, 46, 0.9));
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            backdrop-filter: blur(20px);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+
+        /* Specifications */
+        .spec-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(15, 32, 39, 0.4);
+            border-radius: 10px;
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: rgba(74, 144, 226, 0.3);
+            transform: translateX(5px);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #74b9ff;
+        }
+
+        .spec-value {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: right;
+        }
+
+        /* Features List */
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        .features-list li::before {
+            content: "✦";
+            color: #74b9ff;
+            position: absolute;
+            left: 0;
+            top: 12px;
+            font-size: 16px;
+        }
+
+        .features-list li:hover {
+            color: #74b9ff;
+        }
+
+        /* Full Width Section */
+        .full-width-section {
+            background: linear-gradient(145deg, rgba(15, 20, 25, 0.95), rgba(26, 26, 46, 0.9));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Applications Grid */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .application-card {
+            background: linear-gradient(145deg, rgba(15, 32, 39, 0.5), rgba(32, 58, 67, 0.4));
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .application-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(74, 144, 226, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .application-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #74b9ff 0%, #4a90e2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        .application-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #74b9ff;
+            margin-bottom: 15px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .content-section,
+            .full-width-section {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <div class="container">
+        <a href="sensor_module.html" class="back-btn">← Back to Sensors</a>
+        
+        <h1 class="hero-title">SensArray™ Micro</h1>
+        <p class="hero-subtitle">Multi-Sensor Environmental Monitoring Platform</p>
+
+        <!-- Technical Specifications & Features -->
+        <div class="content-grid">
+            <!-- Extended Technical Specifications -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <span class="section-icon">⚙</span>
+                    Technical Specifications
+                </h2>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">Dimensions</span>
+                        <span class="spec-value">25mm × 25mm × 5mm</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Weight</span>
+                        <span class="spec-value">12g</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Power (Standby)</span>
+                        <span class="spec-value">25 μW</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Power (Active)</span>
+                        <span class="spec-value">150 μW</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Operating Range</span>
+                        <span class="spec-value">-40°C to +85°C</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Data Rate</span>
+                        <span class="spec-value">1 sample/second</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Communication</span>
+                        <span class="spec-value">LoRaWAN, Bluetooth 5.0</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Radiation Tolerance</span>
+                        <span class="spec-value">100 krad (Si)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Supply Voltage</span>
+                        <span class="spec-value">1.8V - 3.6V</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Storage Temperature</span>
+                        <span class="spec-value">-55°C to +125°C</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor Capabilities -->
+            <div class="content-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Sensor Capabilities
+                </h2>
+                
+                <ul class="features-list">
+                    <li><strong>Temperature:</strong> ±0.1°C accuracy</li>
+                    <li><strong>Humidity:</strong> ±2% RH precision</li>
+                    <li><strong>Pressure:</strong> ±0.1 hPa resolution</li>
+                    <li><strong>Accelerometer:</strong> 3-axis, ±16g range</li>
+                    <li><strong>Gyroscope:</strong> 3-axis, ±2000°/s</li>
+                    <li><strong>Magnetometer:</strong> 3-axis, ±50 gauss</li>
+                    <li><strong>Light Sensor:</strong> UV/Visible/IR spectrum</li>
+                    <li><strong>Gas Detection:</strong> CO₂, VOC, NOₓ</li>
+                    <li><strong>GPS:</strong> Sub-meter accuracy</li>
+                    <li><strong>Vibration:</strong> Frequency analysis</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Applications Section -->
+        <div class="full-width-section">
+            <h2 class="section-title">
+                <span class="section-icon">🎯</span>
+                Applications & Use Cases
+            </h2>
+            
+            <div class="applications-grid">
+                <div class="application-card">
+                    <div class="application-icon">🛰</div>
+                    <div class="application-title">Satellite Deployment</div>
+                    <p>Environmental monitoring in space applications with radiation-hardened design and ultra-low power consumption.</p>
+                </div>
+
+                <div class="application-card">
+                    <div class="application-icon">🏭</div>
+                    <div class="application-title">Industrial IoT</div>
+                    <p>Remote monitoring of industrial equipment, predictive maintenance, and process optimization in harsh environments.</p>
+                </div>
+
+                <div class="application-card">
+                    <div class="application-icon">🌾</div>
+                    <div class="application-title">Smart Agriculture</div>
+                    <p>Precision agriculture, soil monitoring, crop health assessment, and automated irrigation systems.</p>
+                </div>
+
+                <div class="application-card">
+                    <div class="application-icon">🏔</div>
+                    <div class="application-title">Environmental Research</div>
+                    <p>Climate monitoring, weather stations, air quality assessment, and ecological research platforms.</p>
+                </div>
+
+                <div class="application-card">
+                    <div class="application-icon">🏠</div>
+                    <div class="application-title">Smart Buildings</div>
+                    <p>Building automation, energy efficiency, occupancy detection, and indoor air quality management.</p>
+                </div>
+
+                <div class="application-card">
+                    <div class="application-icon">🚗</div>
+                    <div class="application-title">Transportation</div>
+                    <p>Vehicle tracking, fleet management, cargo monitoring, and transportation safety systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="full-width-section">
+            <h2 class="section-title">
+                <span class="section-icon">📈</span>
+                Performance Metrics
+            </h2>
+            
+            <div class="content-grid" style="margin-top: 30px;">
+                <div class="content-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">⚡</span>
+                        Power Efficiency
+                    </h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Sleep Mode</span>
+                            <span class="spec-value">2.5 μA</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Active Sensing</span>
+                            <span class="spec-value">85 mA (peak)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Data Transmission</span>
+                            <span class="spec-value">120 mA (LoRaWAN)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Battery Life</span>
+                            <span class="spec-value">5+ years (CR2032)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">📡</span>
+                        Communication
+                    </h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">LoRaWAN Range</span>
+                            <span class="spec-value">15 km (rural)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Bluetooth Range</span>
+                            <span class="spec-value">100m (open field)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Data Payload</span>
+                            <span class="spec-value">51 bytes (LoRaWAN)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Update Frequency</span>
+                            <span class="spec-value">Configurable (1s - 24h)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe content sections for animations
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe all content sections
+            document.querySelectorAll('.content-section, .application-card').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease';
+                observer.observe(section);
+            });
+
+            console.log('🚀 SensArray™ Micro Details Page Loaded');
+        });
+    </script>
+</body>
+</html>

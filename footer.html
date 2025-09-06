@@ -1,238 +1,288 @@
-<footer>
- 
-  
-  <div class="copyright">
-    <p>&copy; 2025 OneHertzLabs. All rights reserved.</p>
+<!-- SIMPLE MINIMAL FOOTER -->
+<footer class="footer-container">
+  <div class="footer-content">
+      <!-- Simple Footer Content -->
+      <div class="footer-grid">
+          <!-- Copyright Section - CENTERED -->
+          <div class="footer-copyright">
+              <p>&copy; 2024 OneHertzLabs. All rights reserved.</p>
+          </div>
+      </div>
   </div>
-  
-  <!-- Add a few small stars in the footer for consistency -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Create a few small stars in the footer
-      const footer = document.querySelector('footer');
-      for(let i=0; i<15; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.position = 'absolute';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        const size = Math.random() * 2 + 1;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.opacity = 0.7;
-        star.style.animation = `twinkle ${3 + Math.random() * 3}s infinite`;
-        star.style.animationDelay = Math.random() * 3 + 's';
-        footer.appendChild(star);
-      }
-      
-      // Remove all borders from all elements on the page
-      document.addEventListener('DOMContentLoaded', function() {
-        // This will remove all borders from all elements
-        const allElements = document.querySelectorAll('*');
-        allElements.forEach(element => {
-          element.style.border = 'none';
-          element.style.borderTop = 'none';
-          element.style.borderBottom = 'none';
-          element.style.borderLeft = 'none';
-          element.style.borderRight = 'none';
-          element.style.boxShadow = 'none';
-        });
-      });
-    });
-  </script>
-  
-  <style>
-    /* Global reset for all borders and lines */
-    *, *::before, *::after {
-      border: none !important;
-      border-top: none !important;
-      border-bottom: none !important;
-      border-left: none !important;
-      border-right: none !important;
-      box-shadow: none !important;
-      outline: none !important;
-    }
-    
-    /* Override any HR elements or dividers */
-    hr, .divider, .separator, [class*="divider"], [class*="separator"], [class*="border"] {
-      display: none !important;
-    }
-    
-    /* Clean footer styling with no visible lines */
-    footer {
-      background: rgba(5, 10, 20, 0.6); /* Simplified background */
-      padding: 25px 5rem 15px;
-      text-align: center;
-      position: relative;
-      z-index: 5;
-      backdrop-filter: blur(10px);
-      /* Ensure no outline or border */
-      outline: none !important;
-      border: none !important;
-      border-width: 0 !important;
-      margin-top: 0;
-      overflow: hidden;
-      /* Use gradient instead of border */
-      background: linear-gradient(to bottom, 
-                rgba(5, 10, 20, 0.3), 
-                rgba(5, 10, 20, 0.6));
-    }
-    
-    /* Override for main content sections */
-    main, section, header, article, aside, .container, .row, .col, [class*="container"], [class*="section"] {
-      border: none !important;
-      box-shadow: none !important;
-    }
-    
-    /* Specific override for navbar and headers */
-    .navbar, .nav, header, .header, .jumbotron, .hero {
-      border: none !important;
-      box-shadow: none !important;
-      border-bottom: none !important;
-    }
-    
-    /* Remove lines from tables */
-    table, tr, td, th, thead, tbody, tfoot {
-      border: none !important;
-      border-collapse: collapse !important;
-    }
-    
-    /* Remove the before pseudo-element that was creating the top line */
-    footer::before {
-      display: none !important;
-      content: none !important;
-    }
-    
-    /* Keep only the subtle glow effect with no line */
-    footer::after {
-      content: '';
-      position: absolute;
-      top: -50px; left: 0;
-      width: 100%; height: 50px;
-      background: radial-gradient(ellipse at center, 
-                  rgba(100, 200, 255, 0.15) 0%, 
-                  transparent 70%);
-      opacity: 0.3;
-      animation: footerGlow 5s infinite alternate;
-      border: none !important;
-    }
-    
-    @keyframes footerGlow {
-      0% { opacity: 0.2; transform: translateY(0); }
-      100% { opacity: 0.4; transform: translateY(5px); }
-    }
-    
-    /* Create smooth gradient transition instead of a line */
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: 0; left: 0;
-      width: 100%; height: 200px;
-      background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(5, 10, 20, 0.2) 75%,
-                rgba(5, 10, 20, 0.4) 100%);
-      pointer-events: none;
-      z-index: 4;
-      border: none !important;
-    }
-    
-    /* Logo styling */
-    .footer-logo {
-      margin-bottom: 15px;
-      display: inline-block;
-    }
-    
-    .footer-logo img {
-      height: 40px;
-      filter: brightness(1.2) drop-shadow(0 0 10px rgba(100, 200, 255, 0.6));
-    }
-    
-    /* Copyright styling */
-    .copyright {
-      padding-top: 10px;
-      /* Remove any borders */
-      border: none !important;
-      border-top: none !important;
-    }
-    
-    .copyright p {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9rem;
-      margin: 0;
-    }
-    
-    /* Fix footer to prevent extra space */
-    html, body {
-      min-height: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    
-    body {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    main {
-      flex: 1 0 auto;
-      position: relative;
-    }
-    
-    footer {
-      flex-shrink: 0;
-    }
-    
-    /* Add JavaScript to remove borders at runtime */
-    .line-remover {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      footer {
-        padding: 20px 2rem 15px;
-      }
-    }
-  </style>
-  
-  <!-- Add a script to forcibly remove all borders at runtime -->
-  <script>
-    // This function will run periodically to remove any borders that might be added by other scripts
-    function removeAllBorders() {
-      const allElements = document.querySelectorAll('*');
-      allElements.forEach(element => {
-        if (element.style) {
-          element.style.setProperty('border', 'none', 'important');
-          element.style.setProperty('border-top', 'none', 'important');
-          element.style.setProperty('border-bottom', 'none', 'important');
-          element.style.setProperty('border-left', 'none', 'important');
-          element.style.setProperty('border-right', 'none', 'important');
-          element.style.setProperty('box-shadow', 'none', 'important');
-        }
-      });
-      
-      // Add inline style override to the body
-      document.body.setAttribute('style', document.body.getAttribute('style') + '; border: none !important; box-shadow: none !important;');
-    }
-    
-    // Run initially and every second to catch any dynamic content
-    document.addEventListener('DOMContentLoaded', function() {
-      removeAllBorders();
-      setInterval(removeAllBorders, 1000);
-      
-      // Create an invisible div that forces removal of all borders
-      const lineRemover = document.createElement('div');
-      lineRemover.className = 'line-remover';
-      document.body.appendChild(lineRemover);
-    });
-  </script>
 </footer>
+
+<style>
+/* MINIMAL FOOTER STYLES - EXACT HEADER COLOR MATCH */
+.footer-container {
+  position: relative !important;
+  background: #000000 !important; /* EXACT MATCH TO HEADER AND MAIN CONTENT */
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-top: none !important;
+  transform: translate3d(0, 0, 0) !important;
+  z-index: 10 !important;
+  min-height: 80px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* REMOVE THE BLENDING BRIDGE */
+.footer-container::before {
+  display: none !important;
+}
+
+/* Main footer content - REDUCED WIDTH */
+.footer-content {
+  display: block !important;
+  padding: 1.5rem 0 1rem 0 !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+
+/* CENTERED Grid Layout */
+.footer-grid {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 1rem !important;
+  text-align: center !important;
+  background: transparent !important;
+}
+
+/* Copyright styling - CENTERED */
+.footer-copyright {
+  text-align: center !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+
+.footer-copyright p {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+  font-weight: 300 !important;
+  text-align: center !important;
+  letter-spacing: 0.3px !important;
+  transition: color 0.3s ease !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.footer-copyright p:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* PERFECT COLOR MATCH - NO GRADIENT, SOLID BACKGROUND */
+.footer-container {
+  background: #0a0a0a !important; /* SOLID COLOR - EXACT MATCH TO HEADER */
+  border-top: none !important;
+  box-shadow: none !important;
+  /* REMOVE THE GRADIENT - IT WAS CAUSING COLOR DIFFERENCE */
+}
+
+/* FORCE EXACT BACKGROUND COLOR OVERRIDE */
+.footer-container,
+.footer-container::before,
+.footer-container::after {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  background-image: none !important;
+  background-gradient: none !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .footer-grid {
+      padding: 0 1rem !important;
+      justify-content: center !important;
+      text-align: center !important;
+  }
+  
+  .footer-copyright {
+      text-align: center !important;
+  }
+  
+  .footer-content {
+      padding: 1.2rem 0 0.8rem 0 !important;
+      max-width: 600px !important;
+  }
+  
+  .footer-container {
+      min-height: 70px !important;
+      background: #0a0a0a !important; /* ENSURE COLOR CONSISTENCY */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+      padding: 0 0.8rem !important;
+  }
+  
+  .footer-copyright p {
+      font-size: 0.8rem !important;
+      line-height: 1.3 !important;
+  }
+  
+  .footer-content {
+      padding: 1rem 0 0.6rem 0 !important;
+      max-width: 400px !important;
+  }
+  
+  .footer-container {
+      min-height: 60px !important;
+      background: #0a0a0a !important; /* ENSURE COLOR CONSISTENCY */
+  }
+}
+
+/* ENSURE NO VISIBLE LINES OR BORDERS */
+.footer-container,
+.footer-content,
+.footer-grid,
+.footer-copyright,
+.footer-copyright p {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* FORCE EXACT COLOR MATCH TO HEADER */
+.footer-container {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  text-align: center !important;
+  background: #0a0a0a !important; /* REPEATED FOR EMPHASIS */
+  background-color: #0a0a0a !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🎯 Color-Matched Footer loaded successfully');
+  
+  // Force footer visibility and EXACT COLOR MATCH
+  const footerContainer = document.querySelector('.footer-container');
+  if (footerContainer) {
+      footerContainer.style.display = 'block';
+      footerContainer.style.visibility = 'visible';
+      footerContainer.style.opacity = '1';
+      footerContainer.style.position = 'relative';
+      footerContainer.style.zIndex = '1000';
+      footerContainer.style.textAlign = 'center';
+      footerContainer.style.borderTop = 'none';
+      footerContainer.style.boxShadow = 'none';
+      
+      // FORCE EXACT BACKGROUND COLOR TO MATCH HEADER
+      footerContainer.style.background = '#0a0a0a';
+      footerContainer.style.backgroundColor = '#0a0a0a';
+      footerContainer.style.backgroundImage = 'none';
+      
+      console.log('✅ Color-Matched Footer visibility and color forced');
+      
+      // Log footer dimensions for debugging
+      setTimeout(() => {
+          const rect = footerContainer.getBoundingClientRect();
+          const computedStyle = window.getComputedStyle(footerContainer);
+          console.log('📏 Color-Matched Footer info:', {
+              width: rect.width,
+              height: rect.height,
+              backgroundColor: computedStyle.backgroundColor,
+              background: computedStyle.background
+          });
+      }, 100);
+  } else {
+      console.log('❌ Color-Matched Footer container not found');
+  }
+  
+  // Force copyright text to be centered
+  const copyrightText = document.querySelector('.footer-copyright p');
+  if (copyrightText) {
+      copyrightText.style.textAlign = 'center';
+      copyrightText.style.width = '100%';
+      copyrightText.style.display = 'block';
+      copyrightText.style.border = 'none';
+      copyrightText.style.background = 'transparent';
+      console.log('✅ Copyright text forced to center');
+  }
+  
+  // Auto-update year if needed
+  const currentYear = new Date().getFullYear();
+  if (copyrightText && currentYear > 2024) {
+      copyrightText.innerHTML = copyrightText.innerHTML.replace('2024', currentYear);
+      console.log('📅 Copyright year updated to:', currentYear);
+  }
+  
+  // FORCE EXACT COLOR MATCH - REMOVE ANY COLOR DIFFERENCES
+  setTimeout(() => {
+      const footer = document.querySelector('.footer-container');
+      if (footer) {
+          // OVERRIDE ANY INHERITED STYLES
+          footer.style.background = '#0a0a0a';
+          footer.style.backgroundColor = '#0a0a0a';
+          footer.style.backgroundImage = 'none';
+          footer.style.backgroundGradient = 'none';
+          
+          // Remove any computed style conflicts
+          const allFooterElements = document.querySelectorAll('.footer-container, .footer-content, .footer-grid, .footer-copyright, .footer-copyright p');
+          allFooterElements.forEach(element => {
+              element.style.border = 'none';
+              element.style.borderTop = 'none';
+              element.style.borderBottom = 'none';
+              element.style.boxShadow = 'none';
+              element.style.outline = 'none';
+          });
+          
+          console.log('🎨 Footer color forced to exact match: #0a0a0a');
+      }
+  }, 200);
+  
+  // Simple visibility check
+  const footerCheck = setInterval(() => {
+      const footer = document.querySelector('.footer-container');
+      if (footer) {
+          const isVisible = footer.offsetHeight > 0 && 
+                           getComputedStyle(footer).visibility !== 'hidden' && 
+                           getComputedStyle(footer).display !== 'none';
+          
+          if (isVisible) {
+              console.log('✅ Color-Matched Footer is visible and has height:', footer.offsetHeight);
+              
+              // DOUBLE-CHECK COLOR MATCH
+              const bgColor = getComputedStyle(footer).backgroundColor;
+              console.log('🎨 Footer background color:', bgColor);
+              
+              clearInterval(footerCheck);
+          } else {
+              console.log('⚠️ Color-Matched Footer exists but not visible, forcing visibility...');
+              footer.style.display = 'block';
+              footer.style.visibility = 'visible';
+              footer.style.opacity = '1';
+              footer.style.minHeight = '80px';
+              footer.style.textAlign = 'center';
+              footer.style.borderTop = 'none';
+              footer.style.background = '#0a0a0a';
+              footer.style.backgroundColor = '#0a0a0a';
+          }
+      }
+  }, 500);
+  
+  // Clear check after 3 seconds
+  setTimeout(() => clearInterval(footerCheck), 3000);
+  
+  console.log('✅ Color-Matched Footer initialization complete');
+});
+</script>
